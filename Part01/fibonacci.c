@@ -7,8 +7,8 @@ unsigned int fibonacci(unsigned int n) {
         printf("Index : %d, result : %d\n", n, n);
         return n;
     }
-    printf("Index : %d, result : %d\n", n, n);
     ret = fibonacci(n - 2) + fibonacci(n - 1);
+    printf("Index : %d, result : %d\n", n, ret);
     return ret;
 }
 
