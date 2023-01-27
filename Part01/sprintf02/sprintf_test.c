@@ -55,5 +55,3 @@ int main(int argc, const char *argv[])
 {
     return UnityMain(argc, argv, RunAllTests);
 }
-
-/* int UnityMain(int argc, const char* argv[], void (*runAllTests)(void));*/
