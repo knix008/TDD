@@ -1,7 +1,7 @@
 TARGET = sprintf_test
 
 all: sprintf_test.o 
-	gcc -o sprintf_test sprintf_test.o unity.o unity_fixture.o unity_memory.o
+	gcc -o $(TARGET) sprintf_test.o unity.o unity_fixture.o unity_memory.o
  
 sprintf_test.o: sprintf_test.c unity.o unity_fixture.o unity_memory.o
 	gcc -c -o sprintf_test.o sprintf_test.c -I../../CUnity -I../../CUnity/extras/fixture/src -I../../CUnity/extras/memory/src
