@@ -11,5 +11,5 @@ fibonacci.o : fibonacci.c fibonacci.h
 	gcc -c -o fibonacci.o fibonacci.c
 
 clean:
-	rm -rf *.o
-	rm fibonacci
+	@rm -rf *.o
+	@rm fibonacci
