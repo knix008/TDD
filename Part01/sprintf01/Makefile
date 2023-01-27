@@ -1,6 +1,6 @@
 TARGET = sprintf
 
-${TARGET}: sprintf_test.o 
+$(TARGET): sprintf_test.o 
 	gcc -o sprintf sprintf_test.o unity.o
  
 sprintf_test.o: sprintf_test.c unity.o
@@ -11,4 +11,4 @@ unity.o:
  
 clean:
 	@rm -rf *.o
-	@rm ${TARGET}
+	@rm $(TARGET)
