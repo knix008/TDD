@@ -1,8 +1,9 @@
 TARGET=LedDriverTest
-SRC=LedDriverTest.c 
+SRC=LedDriverTest.c
 INCLUDES=-I../../../CUnity \
          -I../../../CUnity/extras/fixture/src \
-         -I../../../CUnity/extras/memory/src
+         -I../../../CUnity/extras/memory/src \
+		 -I../Src 
 
 all: $(SRC) unity.o unity_fixture.o unity_memory.o
 	@echo "Compiling the test..."

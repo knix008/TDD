@@ -12,7 +12,10 @@ TEST_TEAR_DOWN(LedDriver)
 
 TEST(LedDriver, LedsOffAfterCreate)
 {
-    /* TEST_FAIL_MESSAGE("Start here"); */
+    uint16_t virtualLeds = 0xffff;
+
+    LedDriver_Create(&virtualLeds);
+    TEST_ASSERT_EQUAL_HEX16(0, virtualLeds);
 }
 
 TEST_GROUP_RUNNER(LedDriver)
