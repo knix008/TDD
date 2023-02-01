@@ -1,5 +1,36 @@
 {
     "files.associations": {
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "array": "c",
+        "atomic": "c",
+        "bit": "c",
+        "*.tcc": "c",
+        "cmath": "c",
+        "cstddef": "c",
+        "deque": "c",
+        "list": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "exception": "c",
+        "functional": "c",
+        "iterator": "c",
+        "memory": "c",
+        "memory_resource": "c",
+        "optional": "c",
+        "string_view": "c",
+        "system_error": "c",
+        "type_traits": "c",
+        "algorithm": "c",
+        "random": "c",
+        "fstream": "c",
+        "istream": "c",
+        "limits": "c",
+        "numeric": "c",
+        "ostream": "c",
+        "sstream": "c",
+        "streambuf": "c",
+        "tuple": "c",
+        "typeinfo": "c"
     }
 }
