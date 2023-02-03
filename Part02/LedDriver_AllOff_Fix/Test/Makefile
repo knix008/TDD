@@ -1,6 +1,6 @@
 TARGET=LedDriverTest
 CC=gcc
-CFLAGS=
+CFLAGS= -Wall
 
 SRCS=LedDriverTest.c \
     ../Src/LedDriver.c
@@ -21,7 +21,7 @@ OBJS= unity.o unity_fixture.o unity_memory.o
 
 $(TARGET): $(SRCS) $(OBJS)
 	@echo "Compiling $(TARGET).c..."
-	@$(CC) -o $@ $(CFLAG) $(SRCS) $(RUNTIME) $(OBJS) $(INCLUDES)
+	@$(CC) -o $@ $(CFLAGS) $(SRCS) $(RUNTIME) $(OBJS) $(INCLUDES)
 	@echo "Running $(TARGET)..."
 	@./$(TARGET)
 
