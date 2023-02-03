@@ -14,5 +14,4 @@ $(TARGET): $(SRC)
 	@./$(TARGET)
 
 clean:
-	@rm *.o
 	@rm $(TARGET)
