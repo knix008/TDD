@@ -1,4 +1,5 @@
 TARGET= lightscheduler
+
 SRCS= LightScheduler.cpp \
       LightSchedulerTest.cpp
 
