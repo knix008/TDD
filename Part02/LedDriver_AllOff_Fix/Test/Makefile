@@ -19,6 +19,8 @@ INCLUDES=-I../../../CUnity \
 
 OBJS= unity.o unity_fixture.o unity_memory.o
 
+.SILENT: $(TARGET) clean
+
 $(TARGET): $(SRCS) $(OBJS)
 	@echo "Compiling $(TARGET).c..."
 	@$(CC) -o $@ $(CFLAGS) $(SRCS) $(RUNTIME) $(OBJS) $(INCLUDES)
