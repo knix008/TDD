@@ -7,6 +7,7 @@ CFLAGS= -Wall
 INCLUDES= -I/usr/include/CppUTest
 LIBS= /usr/lib/x86_64-linux-gnu/libCppUTest.a
 CPPUTESTRUN_OPTION= -c
+.SILENT: $(TARGET) clean
 
 $(TARGET): $(SRCS)
 	@echo "Building $(TARGET)..."
