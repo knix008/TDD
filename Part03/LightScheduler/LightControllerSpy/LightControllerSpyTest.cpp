@@ -1,5 +1,5 @@
 #include <CppUTest/CommandLineTestRunner.h>
-#include "LightController.h"
+#include "LightControllerSpy.h"
 
 TEST_GROUP(LightControllerSpy)
 {

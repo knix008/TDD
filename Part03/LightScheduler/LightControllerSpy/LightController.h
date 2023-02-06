@@ -12,8 +12,6 @@ enum
 void LightController_Create(void);
 void LightController_On(int id);
 void LightController_Off(int id);
-int LightControllerSpy_GetLastId(void);
-int LightControllerSpy_GetLastState(void);
 void LightController_Destroy(void);
 
 #endif

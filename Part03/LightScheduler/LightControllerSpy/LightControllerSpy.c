@@ -1,4 +1,4 @@
-#include "LightController.h"
+#include "LightControllerSpy.h"
 
 static int lastId;
 static int lastState;
