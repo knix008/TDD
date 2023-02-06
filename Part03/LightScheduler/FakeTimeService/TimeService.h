@@ -8,7 +8,7 @@
 
 typedef enum Day
 {
-    UNKNOWNDAY = -4,
+    NONE = -4,
     EVERYDAY = -3,
     WEEKDAY = -2,
     WEEKEND = -1,

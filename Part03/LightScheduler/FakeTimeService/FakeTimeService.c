@@ -7,7 +7,7 @@ static int period;
 void TimeService_Create(void)
 {
     fakeTime.minuteOfDay = -1;
-    fakeTime.dayOfWeek = UNKNOWNDAY;
+    fakeTime.dayOfWeek = NONE;
     callback = NULL;
     period = -1;
 }
