@@ -1,9 +1,10 @@
 TARGET= faketimeservicetest
 
-SRCS= FakeTimeServiceTest.cpp
+SRCS= FakeTimeServiceTest.cpp \
+      FakeTimeService.c
 
-INCLUDE_FILES= LightController.h \
-               LightControllerSpy.h
+INCLUDE_FILES= FakeTimeService.h \
+               TimeService.h
 
 CC= g++
 CFLAGS= -Wall

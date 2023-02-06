@@ -1,4 +1,6 @@
 #include <CppUTest/CommandLineTestRunner.h>
+#include "TimeService.h"
+#include "FakeTimeService.h"
 
 TEST_GROUP(FakeTimeService){
     void setup(){} void teardown(){}};
