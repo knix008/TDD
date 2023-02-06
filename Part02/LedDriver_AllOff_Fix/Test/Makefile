@@ -5,16 +5,18 @@ CFLAGS= -Wall
 SRCS=LedDriverTest.c \
     ../Src/LedDriver.c
 
-RUNTIME=../../../Util/RuntimeErrorStub.c
+UTIL_DIR=../../../Util
+UTIL=$(UTIL_DIR)/RuntimeErrorStub.c
 
-UNITY=../../../CUnity/unity.c \
-      ../../../CUnity/extras/fixture/src/unity_fixture.c \
-      ../../../CUnity/extras/memory/src/unity_memory.c
+UNITY_DIR=../../../CUnity
+UNITY=$(UNITY_DIR)/unity.c \
+      $(UNITY_DIR)/extras/fixture/src/unity_fixture.c \
+      $(UNITY_DIR)/extras/memory/src/unity_memory.c
 
-INCLUDES=-I../../../CUnity \
-         -I../../../CUnity/extras/fixture/src \
-         -I../../../CUnity/extras/memory/src \
-         -I../../../Util \
+INCLUDES=-I$(UNITY_DIR) \
+         -I$(UNITY_DIR)/extras/fixture/src \
+         -I$(UNITY_DIR)/extras/memory/src \
+         -I$(UTIL_DIR) \
 		 -I../Src
 
 OBJS= unity.o unity_fixture.o unity_memory.o
@@ -23,7 +25,7 @@ OBJS= unity.o unity_fixture.o unity_memory.o
 
 $(TARGET): $(SRCS) $(OBJS)
 	@echo "Compiling $(TARGET).c..."
-	@$(CC) -o $@ $(CFLAGS) $(SRCS) $(RUNTIME) $(OBJS) $(INCLUDES)
+	@$(CC) -o $@ $(CFLAGS) $(SRCS) $(UTIL) $(OBJS) $(INCLUDES)
 	@echo "Running $(TARGET)..."
 	@./$(TARGET)
 
