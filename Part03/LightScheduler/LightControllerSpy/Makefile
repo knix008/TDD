@@ -1,9 +1,10 @@
-TARGET= lightscheduler
+TARGET= lightcontrollertest
 
-SRCS= LightScheduler.c \
-      LightSchedulerTest.cpp
+SRCS= LightControllerSpyTest.cpp \
+      LightControllerSpy.c
 
-INCLUDE_FILES= LightScheduler.h
+INCLUDE_FILES= LightController.h \
+               LightControllerSpy.h
 
 CC= g++
 CFLAGS= -Wall

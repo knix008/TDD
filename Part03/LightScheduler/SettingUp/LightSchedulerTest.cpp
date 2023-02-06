@@ -1,5 +1,5 @@
 #include <CppUTest/CommandLineTestRunner.h>
-#include "LightScheduler.hpp"
+#include "LightScheduler.h"
 
 TEST_GROUP(LightScheduler){
     void setup(){} void teardown(){}};

@@ -1,4 +1,4 @@
-#include "LightScheduler.hpp"
+#include "LightScheduler.h"
 
 void LightScheduler_ScheduleTurnOn(int, int, int)
 {
