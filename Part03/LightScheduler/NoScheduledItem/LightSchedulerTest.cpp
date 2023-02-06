@@ -4,7 +4,18 @@
 #include "LightControllerSpy.h"
 
 TEST_GROUP(LightScheduler){
-    void setup(){} void teardown(){}};
+   void setup()
+   {
+        LightController_Create();
+        LightScheduler_Create();
+   }
+
+   void teardown()
+   {
+      LightScheduler_Destroy();
+      LightController_Destroy();
+   }
+};
 
 TEST(LightScheduler, NoScheduledNothingHappens)
 {
