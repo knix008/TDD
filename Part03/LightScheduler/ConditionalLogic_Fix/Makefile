@@ -26,7 +26,7 @@ $(TARGET): $(SRCS) $(INCLUDE_FILES)
 	@echo "Building $(TARGET)..."
 	@$(CC) -o $(TARGET) $(CFLAGS) $(SRCS) $(INCLUDES) $(LIBS)
 	@echo "Running $(TARGET)..."
-	@./$(TARGET) $(CPPUTESTRUN_OPTION)
+	./$(TARGET) $(CPPUTESTRUN_OPTION)
 
 clean:
 	@rm $(TARGET)

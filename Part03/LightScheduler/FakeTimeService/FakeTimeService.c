@@ -19,7 +19,8 @@ void TimeService_Destroy(void)
 void FakeTimeService_MinuteIsUp(void)
 {
     if (callback != NULL)
-        callback();
+        ;
+    callback();
 }
 
 void TimeService_SetPeriodicAlarmInSeconds(int seconds, WakeupCallback cb)
@@ -29,7 +30,7 @@ void TimeService_SetPeriodicAlarmInSeconds(int seconds, WakeupCallback cb)
 }
 
 void TimeService_CancelPeriodicAlarmInSeconds(
-        int seconds, WakeupCallback cb)
+    int seconds, WakeupCallback cb)
 {
     if (cb == callback && period == seconds)
     {
@@ -38,7 +39,7 @@ void TimeService_CancelPeriodicAlarmInSeconds(
     }
 }
 
-void TimeService_GetTime(Time * time)
+void TimeService_GetTime(Time *time)
 {
     time->minuteOfDay = fakeTime.minuteOfDay;
     time->dayOfWeek = fakeTime.dayOfWeek;

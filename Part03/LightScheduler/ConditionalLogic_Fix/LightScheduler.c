@@ -29,6 +29,7 @@ void LightScheduler_Create(void)
 static void scheduleEvent(int id, Day day, int minuteOfDay, int event)
 {
     scheduledEvent.minuteOfDay = minuteOfDay;
+    scheduledEvent.day = day;
     scheduledEvent.event = event;
     scheduledEvent.id = id;
 }
@@ -81,6 +82,7 @@ static void processEventDueNow(Time *time, ScheduledLightEvent *lightEvent)
 void LightScheduler_Wakeup(void)
 {
     Time time;
+
     TimeService_GetTime(&time);
     processEventDueNow(&time, &scheduledEvent);
 }
