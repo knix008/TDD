@@ -23,7 +23,7 @@ INCLUDES+= -I/usr/include/CppUTest
 LIBS= /usr/lib/x86_64-linux-gnu/libCppUTest.a
 CPPUTESTRUN_OPTION= -c
 COVERAGE_INFO=testcoverage.info
-COVERAGE_OUTPUT_DIR=html
+COVERAGE_OUTPUT_DIR=coverage
 .SILENT: $(TARGET) clean
 
 $(TARGET): $(SRCS) $(INCLUDE_FILES)
@@ -42,7 +42,7 @@ coverage:
 cclean:
 	@-rm *.gcda *.gcno 
 	@-rm *.gcov *.info
-	@-rm -rf ./html
+	@-rm -rf $(COVERAGE_OUTPUT_DIR)
 	@-rm $(TARGET)_cov
 
 clean:
