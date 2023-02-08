@@ -5,13 +5,6 @@
 
 enum
 {
-    LS_OK = 0,
-    LS_TOO_MANY_EVENTS,
-    LS_ID_OUT_OF_BOUNDS
-};
-
-enum
-{
     UNUSED = -1,
     TURN_OFF,
     TURN_ON,
