@@ -32,5 +32,6 @@
         "streambuf": "c",
         "tuple": "c",
         "typeinfo": "c"
-    }
+    },
+    "cmake.configureOnOpen": true
 }

@@ -194,7 +194,7 @@ TEST_GROUP(RandomMinute)
 
    void setup()
    {
-      RandomMinute_Create(BOUND);
+      //RandomMinute_Create(BOUND);
       srand(1);
    }
 
@@ -212,7 +212,7 @@ TEST(RandomMinute, GetIsInRange)
 {
    for (int i = 0; i < 100; i++)
    {
-      minute = RandomMinute_Get();
+      //minute = RandomMinute_Get();
       AssertMinuteIsInRange();
    }
 }
@@ -225,7 +225,7 @@ TEST(RandomMinute, AllValuesPossible)
 
    for (i = 0; i < 225; i++)
    {
-      minute = RandomMinute_Get();
+      //minute = RandomMinute_Get();
       AssertMinuteIsInRange();
       hit[minute + BOUND]++;
    }

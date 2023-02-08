@@ -1,4 +1,5 @@
-TARGET= lightschedulerteset
+TARGET= lightschedulertest
+COVERAGE_SRC=LightSchedulerTest.cpp
 
 FAKETIMESERVICE_DIR= ../FakeTimeService
 LIGHTCONTROLLERSPY_DIR= ../LightControllerSpy
@@ -17,9 +18,12 @@ INCLUDES= -I$(FAKETIMESERVICE_DIR) \
             
 CC= g++
 CFLAGS= -Wall
+CFLAGS_COV= -Wall -fprofile-arcs -ftest-coverage -g
 INCLUDES+= -I/usr/include/CppUTest
 LIBS= /usr/lib/x86_64-linux-gnu/libCppUTest.a
 CPPUTESTRUN_OPTION= -c
+COVERAGE_INFO=testcoverage.info
+COVERAGE_OUTPUT_DIR=html
 .SILENT: $(TARGET) clean
 
 $(TARGET): $(SRCS) $(INCLUDE_FILES)
@@ -28,5 +32,15 @@ $(TARGET): $(SRCS) $(INCLUDE_FILES)
 	@echo "Running $(TARGET)..."
 	./$(TARGET) $(CPPUTESTRUN_OPTION)
 
+coverage: 
+	@$(CC) -o $(TARGET)_cov $(CFLAGS_COV) $(SRCS) $(INCLUDES) $(LIBS)
+	@-./$(TARGET)_cov
+	@gcov $(COVERAGE_SRC) 
+	@lcov --rc lcov_branch_coverage=1 --capture --directory ./ --output-file $(COVERAGE_INFO)
+	@genhtml ${COVERAGE_INFO} --branch-coverage --output-directory ${COVERAGE_OUTPUT_DIR}
+
 clean:
-	@rm $(TARGET)
+	@-rm *.gcda *.gcno 
+	@-rm *.gcov *.info
+	@-rm -rf ./html
+	@-rm $(TARGET) $(TARGET)_cov
