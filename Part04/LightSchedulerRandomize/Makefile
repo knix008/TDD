@@ -6,7 +6,8 @@ FAKERANDOMMINUTE_DIR= ../FakeRandomMinute
 LIGHTCONTROLLERSPY_DIR= ../LightControllerSpy
 RANDOMMINUTE_DIR=../RandomMinute
 
-SRCS= LightSchedulerRandomTest.cpp \
+#SRCS= LightSchedulerRandomTest.cpp
+SRCS= LightSchedulerTest.cpp \
       LightScheduler.c \
       $(FAKETIMESERVICE_DIR)/FakeTimeService.c \
 	  $(FAKERANDOMMINUTE_DIR)/FakeRandomMinute.c \

@@ -1,33 +1,55 @@
-#include <stdbool.h>
-#include "TimeService.h"
+#include <stdlib.h>
+#include <string.h>
+
 #include "LightController.h"
-#include "LightScheduler.h"
+#include "TimeService.h"
 #include "RandomMinute.h"
+#include "LightScheduler.h"
 
 enum
 {
-    UNUSED = -1,
-    TURN_OFF,
     TURN_ON,
+    TURN_OFF,
     DIM,
     RANDOM_ON,
-    RANDOM_OFF,
-    MAX_EVENTS = 128
+    RANDOM_OFF
+};
+
+enum
+{
+    MAX_EVENTS = 128,
+    UNUSED = -1
 };
 
 typedef struct
 {
     int id;
-    int event;
     Day day;
     int minuteOfDay;
+    int event;
     int randomize;
     int randomMinutes;
+
 } ScheduledLightEvent;
 
-static ScheduledLightEvent scheduledEvents[MAX_EVENTS];
+static ScheduledLightEvent eventList[MAX_EVENTS];
 
-static int scheduleEvent(int id, Day day, int minuteOfDay, int event)
+void LightScheduler_Create(void)
+{
+    int i;
+    for (i = 0; i < MAX_EVENTS; i++)
+    {
+        eventList[i].id = UNUSED;
+    }
+    TimeService_SetPeriodicAlarmInSeconds(60, LightScheduler_WakeUp);
+}
+
+void LightScheduler_Destroy(void)
+{
+    TimeService_CancelPeriodicAlarmInSeconds(60, LightScheduler_WakeUp);
+}
+
+int LightScheduler_ScheduleTurnOn(int id, Day day, int minuteOfDay)
 {
     int i;
 
@@ -36,72 +58,68 @@ static int scheduleEvent(int id, Day day, int minuteOfDay, int event)
 
     for (i = 0; i < MAX_EVENTS; i++)
     {
-        if (scheduledEvents[i].id == UNUSED)
+        if (eventList[i].id == UNUSED)
         {
-            scheduledEvents[i].day = day;
-            scheduledEvents[i].minuteOfDay = minuteOfDay;
-            scheduledEvents[i].event = event;
-            scheduledEvents[i].id = id;
+            eventList[i].id = id;
+            eventList[i].day = day;
+            eventList[i].minuteOfDay = minuteOfDay;
+            eventList[i].event = TURN_ON;
+            eventList[i].randomize = RANDOM_OFF;
+            eventList[i].randomMinutes = 0;
             return LS_OK;
         }
     }
     return LS_TOO_MANY_EVENTS;
 }
 
-static void operateLight(ScheduledLightEvent *lightEvent)
+int LightScheduler_ScheduleTurnOff(int id, Day day, int minuteOfDay)
 {
-    if (lightEvent->event == TURN_ON){
-        LightController_On(lightEvent->id);
+    int i;
+
+    if (id < 0 || id >= MAX_LIGHTS)
+        return LS_ID_OUT_OF_BOUNDS;
+
+    for (i = 0; i < MAX_EVENTS; i++)
+    {
+        if (eventList[i].id == UNUSED)
+        {
+            eventList[i].id = id;
+            eventList[i].day = day;
+            eventList[i].minuteOfDay = minuteOfDay;
+            eventList[i].event = TURN_OFF;
+            eventList[i].randomize = RANDOM_OFF;
+            eventList[i].randomMinutes = 0;
+            return LS_OK;
+        }
     }
-    else if (lightEvent->event == TURN_OFF) {
-        LightController_Off(lightEvent->id);
+    return LS_TOO_MANY_EVENTS;
+}
+
+void LightScheduler_Randomize(int id, Day day, int minuteOfDay)
+{
+    int i;
+    for (i = 0; i < MAX_EVENTS; i++)
+    {
+        ScheduledLightEvent *e = &eventList[i];
+        if (e->id == id && e->day == day && e->minuteOfDay == minuteOfDay)
+        {
+            e->randomize = RANDOM_ON;
+            e->randomMinutes = RandomMinute_Get();
+        }
     }
 }
 
-static bool DoesLightRespondToday(Time *time, int reactionDay)
-{
-    int today = time->dayOfWeek;
-
-    if (reactionDay == EVERYDAY)
-        return true;
-    if (reactionDay == today)
-        return true;
-    if (reactionDay == WEEKEND && (SATURDAY == today || SUNDAY == today))
-        return true;
-    if (reactionDay == WEEKDAY && today >= MONDAY && today <= FRIDAY)
-        return true;
-    return false;
-}
-
-static void processEventDueNow(Time *time, ScheduledLightEvent *lightEvent)
-{
-    if (lightEvent->id == UNUSED)
-        return;
-    if (!DoesLightRespondToday(time, lightEvent->day))
-        return;
-    if (lightEvent->minuteOfDay != time->minuteOfDay)
-        return;
-    operateLight(lightEvent);
-}
-
-void LightScheduler_Create(void)
+void LightScheduler_ScheduleRemove(int id, Day day, int minuteOfDay)
 {
     int i;
 
     for (i = 0; i < MAX_EVENTS; i++)
-        scheduledEvents[i].id = UNUSED;
-
-    TimeService_SetPeriodicAlarmInSeconds(60, LightScheduler_WakeUp);
-}
-
-int LightScheduler_ScheduleTurnOn(int id, Day day, int minuteOfDay)
-{
-    return scheduleEvent(id, day, minuteOfDay, TURN_ON);
-}
-
-int LightScheduler_ScheduleTurnOff(int id, Day day, int minuteOfDay)
-{
-    return scheduleEvent(id, day, minuteOfDay, TURN_OFF);
+    {
+        if (eventList[i].id == id && eventList[i].day == day && eventList[i].minuteOfDay == minuteOfDay)
+        {
+            eventList[i].id = UNUSED;
+        }
+    }
 }
 
 void LightScheduler_WakeUp(void)
@@ -117,11 +135,12 @@ void LightScheduler_WakeUp(void)
 
     for (i = 0; i < MAX_EVENTS; i++)
     {
-        ScheduledLightEvent * se = &scheduledEvents[i];
+        ScheduledLightEvent *se = &eventList[i];
         if (se->id != UNUSED)
         {
             Day d = se->day;
-            if ( (d == EVERYDAY) || (d == td) || (d == WEEKEND && (SATURDAY == td || SUNDAY == td)) || (d == WEEKDAY && (td >= MONDAY && td <= FRIDAY)))
+            if ((d == EVERYDAY) || (d == td) || (d == WEEKEND && (SATURDAY == td || SUNDAY == td)) ||
+                (d == WEEKDAY && (td >= MONDAY && td <= FRIDAY)))
             {
                 /* it's the right day */
                 if (min == se->minuteOfDay + se->randomMinutes)
@@ -135,42 +154,8 @@ void LightScheduler_WakeUp(void)
                         se->randomMinutes = RandomMinute_Get();
                     else
                         se->randomMinutes = 0;
-
                 }
             }
-        }
-    }
-}
-
-void LightScheduler_Destroy(void)
-{
-    TimeService_CancelPeriodicAlarmInSeconds(60, LightScheduler_WakeUp);
-}
-
-void LightScheduler_ScheduleRemove(int id, Day day, int minuteOfDay)
-{
-    int i;
-
-    for (i = 0; i < MAX_EVENTS; i++)
-    {
-        if (scheduledEvents[i].id == id && scheduledEvents[i].day == day && scheduledEvents[i].minuteOfDay == minuteOfDay)
-        {
-            scheduledEvents[i].id = UNUSED;
-        }
-    }
-}
-
-void LightScheduler_Randomize(int id, Day day, int minuteOfDay)
-{
-    int i;
-
-    for (i = 0; i < MAX_EVENTS; i++)
-    {
-        ScheduledLightEvent *e = &scheduledEvents[i];
-        if (e->id == id && e->day == day && e->minuteOfDay == minuteOfDay)
-        {
-            e->randomize = RANDOM_ON;
-            e->randomMinutes = RandomMinute_Get();
         }
     }
 }
