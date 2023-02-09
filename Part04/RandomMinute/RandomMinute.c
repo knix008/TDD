@@ -13,7 +13,6 @@ void RandomMinute_Create(int b)
 
 int RandomMinute_GetImpl(void)
 {
-    printf("Calling Random Implementation!!!\n");
     return bound - rand() % (bound * 2 + 1);
 }
 

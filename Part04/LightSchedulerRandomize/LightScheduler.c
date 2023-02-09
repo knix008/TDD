@@ -1,5 +1,4 @@
 #include <stdbool.h>
-#include <stdio.h>
 #include "TimeService.h"
 #include "LightController.h"
 #include "LightScheduler.h"
@@ -53,11 +52,9 @@ static void operateLight(ScheduledLightEvent *lightEvent)
 {
     if (lightEvent->event == TURN_ON){
         LightController_On(lightEvent->id);
-        printf("The Light : %d is On\n", lightEvent->id);
     }
     else if (lightEvent->event == TURN_OFF) {
         LightController_Off(lightEvent->id);
-        printf("The Light : %d is Off\n", lightEvent->id);
     }
 }
 
@@ -84,7 +81,6 @@ static void processEventDueNow(Time *time, ScheduledLightEvent *lightEvent)
         return;
     if (lightEvent->minuteOfDay != time->minuteOfDay)
         return;
-    printf("Calling operateLight!!!\n");
     operateLight(lightEvent);
 }
 
@@ -125,10 +121,7 @@ void LightScheduler_WakeUp(void)
         if (se->id != UNUSED)
         {
             Day d = se->day;
-            if ( (d == EVERYDAY) || (d == td) || (d == WEEKEND &&
-                            (SATURDAY == td || SUNDAY == td)) ||
-                    (d == WEEKDAY && (td >= MONDAY
-                                    && td <= FRIDAY)))
+            if ( (d == EVERYDAY) || (d == td) || (d == WEEKEND && (SATURDAY == td || SUNDAY == td)) || (d == WEEKDAY && (td >= MONDAY && td <= FRIDAY)))
             {
                 /* it's the right day */
                 if (min == se->minuteOfDay + se->randomMinutes)
@@ -171,13 +164,11 @@ void LightScheduler_Randomize(int id, Day day, int minuteOfDay)
 {
     int i;
 
-    printf("Calling Random Scheduler!!!\n");
     for (i = 0; i < MAX_EVENTS; i++)
     {
         ScheduledLightEvent *e = &scheduledEvents[i];
         if (e->id == id && e->day == day && e->minuteOfDay == minuteOfDay)
         {
-            printf("Seeting Random!!!\n");
             e->randomize = RANDOM_ON;
             e->randomMinutes = RandomMinute_Get();
         }
