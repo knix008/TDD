@@ -1,18 +1,18 @@
-TARGET= formattedoutput
+TARGET= formatoutputspy
 COVERAGE_SRC=FormatOutputSpyTest.cpp
 
-UTIL_DIR= ../Util
 FORMATOUTPUTSPY_DIR= ../FormatOutputSpy
+UTIL_DIR=../Util
 
 SRCS= $(COVERAGE_SRC) \
       $(FORMATOUTPUTSPY_DIR)/FormatOutputSpy.c \
 	  $(UTIL_DIR)/Util.c
 
-INCLUDE_FILES= $(UTIL_DIR)/Util.h \
-               $(FORMATOUTPUTSPY_DIR)/FormatOutputSpy.h
+INCLUDE_FILES= $(FORMATOUTPUTSPY_DIR)/FormatOutputSpy.h \
+               $(UTIL_DIR)/Util.h
 
-INCLUDES= -I$(UTIL_DIR) \
-          -I$(FORMATOUTPUTSPY_DIR)
+INCLUDES= -I$(FORMATOUTPUTSPY_DIR) \
+          -I$(UTIL_DIR)
             
 CC= g++
 CFLAGS= -Wall

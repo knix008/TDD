@@ -1,8 +1,8 @@
 #include <CppUTest/CommandLineTestRunner.h>
-#include "FormatOutput.h"
 #include "Util.h"
+#include "FormatOutputSpy.h"
 
-TEST_GROUP(FormatOutputSpy)
+TEST_GROUP(FormatOutput)
 {
     void setup()
     {
@@ -15,7 +15,7 @@ TEST_GROUP(FormatOutputSpy)
     }
 };
 
-TEST(FormatOutputSpy, HelloWorld)
+TEST(FormatOutput, HelloWorld)
 {
     FormatOutputSpy_Create(20);
     FormatOutput("Hello, World\n");

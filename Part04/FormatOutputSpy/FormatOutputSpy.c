@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdarg.h>
-#include "FormatOutputSpy.h"
 #include <stdlib.h>
-#include <stdarg.h>
+#include "FormatOutputSpy.h"
 
 static char *buffer = 0;
 static size_t buffer_size = 0;
