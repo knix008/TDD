@@ -1,51 +1,40 @@
-TARGET= flashdrivertest
-COVERAGE_SRC=FlashDriverTest.cpp
-
-IO_DIR= ../../IO
-MOCK_DIR= ../Mock
-
-SRCS= $(COVERAGE_SRC) \
-      $(IO_DIR)/IO.c \
-	  $(MOCK_DIR)/MockIO.c
-	  FlashDriver.c
-
-INCLUDE_FILES= $(IO_DIR)/IO.h \
-               $(MOCK_DIR)/MockIO.h
-
-INCLUDES= -I$(IO_DIR) \
-          -I$(MOCK_DIR)
-            
-CC= g++
+TARGET=flashdrivertest
+CC=gcc
 CFLAGS= -Wall
-CFLAGS_COV= -Wall -fprofile-arcs -ftest-coverage -g
-INCLUDES+= -I/usr/include/CppUTest
-LIBS= /usr/lib/x86_64-linux-gnu/libCppUTest.a
-CPPUTESTRUN_OPTION= -c
-COVERAGE_INFO=testcoverage.info
-COVERAGE_OUTPUT_DIR=coverage
-.SILENT: $(TARGET) clean
+UNITY_DIR=../../CUnity
+CMOCK_DIR=../CMock/src
+MOCK_DIR=../Mock
+IO_DIR=../../IO
 
-$(TARGET): $(SRCS) $(INCLUDE_FILES)
-	@echo "Building $(TARGET)..."
-	@$(CC) -o $(TARGET) $(CFLAGS) $(SRCS) $(INCLUDES) $(LIBS)
+SRCS=FlashDriverTest.c \
+     FlashDriver.c
+
+CMOCK_SRC=$(CMOCK_DIR)/cmock.c
+
+MOCK_SRC=$(MOCK_DIR)/MockIO.c
+
+UNITY_SRC=$(UNITY_DIR)/unity.c \
+          $(UNITY_DIR)/extras/fixture/src/unity_fixture.c \
+          $(UNITY_DIR)/extras/memory/src/unity_memory.c
+
+INCLUDES=-I$(UNITY_DIR) \
+         -I$(UNITY_DIR)/extras/fixture/src \
+         -I$(UNITY_DIR)/extras/memory/src \
+		 -I$(CMOCK_DIR) \
+		 -I$(MOCK_DIR) \
+		 -I$(IO_DIR)
+
+UNITY_OBJS= unity.o unity_fixture.o unity_memory.o
+
+$(TARGET): $(SRCS) $(UNITY_OBJS)
+	@echo "Compiling $(TARGET).c..."
+	@$(CC) -o $@ $(CFLAG) $(SRCS) $(CMOCK_SRC) $(MOCK_SRC) $(UNITY_OBJS) $(INCLUDES)
 	@echo "Running $(TARGET)..."
-	./$(TARGET) $(CPPUTESTRUN_OPTION)
+	@./$(TARGET)
 
-coverage: 
-	@$(CC) -o $(TARGET)_cov $(CFLAGS_COV) $(SRCS) $(INCLUDES) $(LIBS)
-	@-./$(TARGET)_cov
-	@gcov $(COVERAGE_SRC) 
-	@lcov --rc lcov_branch_coverage=1 --capture --directory ./ --output-file $(COVERAGE_INFO)
-	@genhtml ${COVERAGE_INFO} --branch-coverage --output-directory ${COVERAGE_OUTPUT_DIR}
-
-cclean:
-	@-rm *.gcda *.gcno 
-	@-rm *.gcov *.info
-	@-rm -rf $(COVERAGE_OUTPUT_DIR)
-	@-rm $(TARGET)_cov
+$(UNITY_OBJS): $(UNITY)
+	@$(CC) -c $(UNITY_SRC) $(INCLUDES)
 
 clean:
-	@-rm $(TARGET)
-
-all: $(TARGET) coverage
-cleanall: cclean clean
+	@rm -rf $(UNITY_OBJS)
+	@rm $(TARGET)
