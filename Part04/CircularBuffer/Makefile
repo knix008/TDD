@@ -1,15 +1,17 @@
-TARGET= formatoutputtest
-COVERAGE_SRC=FormatOutputTest.cpp
+TARGET= circularbuffertest
+COVERAGE_SRC=CircularBufferTest.cpp
 
 UTIL_DIR= ../Util
 FORMATOUTPUTSPY_DIR= ../FormatOutputSpy
 
 SRCS= $(COVERAGE_SRC) \
       $(FORMATOUTPUTSPY_DIR)/FormatOutputSpy.c \
-	  $(UTIL_DIR)/Util.c
+	  $(UTIL_DIR)/Util.c \
+	  CircularBuffer.c
 
 INCLUDE_FILES= $(UTIL_DIR)/Util.h \
-               $(FORMATOUTPUTSPY_DIR)/FormatOutputSpy.h
+               $(FORMATOUTPUTSPY_DIR)/FormatOutputSpy.h \
+			   CircularBuffer.h
 
 INCLUDES= -I$(UTIL_DIR) \
           -I$(FORMATOUTPUTSPY_DIR)
