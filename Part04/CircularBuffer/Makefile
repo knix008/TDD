@@ -39,6 +39,8 @@ coverage:
 	@lcov --rc lcov_branch_coverage=1 --capture --directory ./ --output-file $(COVERAGE_INFO)
 	@genhtml ${COVERAGE_INFO} --branch-coverage --output-directory ${COVERAGE_OUTPUT_DIR}
 
+all: $(TARGET) coverage
+
 cclean:
 	@-rm *.gcda *.gcno 
 	@-rm *.gcov *.info
@@ -47,3 +49,5 @@ cclean:
 
 clean:
 	@-rm $(TARGET)
+
+cleanall: cclean clean
