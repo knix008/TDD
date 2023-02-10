@@ -2,14 +2,18 @@ TARGET= flashdrivertest
 COVERAGE_SRC=FlashDriverTest.cpp
 
 IO_DIR= ../../IO
+MOCK_DIR= ../Mock
 
 SRCS= $(COVERAGE_SRC) \
       $(IO_DIR)/IO.c \
+	  $(MOCK_DIR)/MockIO.c
 	  FlashDriver.c
 
-INCLUDE_FILES= $(IO_DIR)/IO.h
+INCLUDE_FILES= $(IO_DIR)/IO.h \
+               $(MOCK_DIR)/MockIO.h
 
-INCLUDES= -I$(IO_DIR)
+INCLUDES= -I$(IO_DIR) \
+          -I$(MOCK_DIR)
             
 CC= g++
 CFLAGS= -Wall
