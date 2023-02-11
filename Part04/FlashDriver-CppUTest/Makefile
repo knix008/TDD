@@ -43,17 +43,17 @@ $(TARGET): $(SRCS) $(INCLUDE_FILES) $(OBJS)
 	@echo "Building $(TARGET)..."
 	@$(CC) -o $(TARGET) $(CFLAGS) $(SRCS) $(INCLUDES) $(LIBS) $(OBJS)
 	@echo "Running $(TARGET)..."
-	./$(TARGET) $(CPPUTESTRUN_OPTION)
+	@./$(TARGET) $(CPPUTESTRUN_OPTION)
 
-$(OBJS): $(UNITY_SRC)
-	@$(CC) -c $(UNITY_SRC) $(UNITY_INCLUDES)
-
-coverage: 
+coverage: $(SRCS) $(INCLUDE_FILES) $(OBJS)
 	@$(CC) -o $(TARGET)_cov $(CFLAGS_COV) $(SRCS) $(INCLUDES) $(LIBS) $(OBJS)
 	@-./$(TARGET)_cov
 	@gcov $(COVERAGE_SRC) 
 	@lcov --rc lcov_branch_coverage=1 --capture --directory ./ --output-file $(COVERAGE_INFO)
 	@genhtml ${COVERAGE_INFO} --branch-coverage --output-directory ${COVERAGE_OUTPUT_DIR}
+
+$(OBJS): $(UNITY_SRC)
+	@$(CC) -c $(UNITY_SRC) $(UNITY_INCLUDES)
 
 all: $(TARGET) coverage
 
