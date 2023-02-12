@@ -22,4 +22,9 @@ typedef enum
 	Reset = 0xff
 } Flash_Command;
 
+typedef enum
+{
+	ReadyBit = 1 << 7,
+} StatusRegisterBits;
+
 #endif

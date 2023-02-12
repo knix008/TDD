@@ -4,6 +4,10 @@
 
 TEST_GROUP(Flash);
 
+ioAddress address = 0x1000;
+ioData data = 0xBEEF;
+int result = -1;
+
 TEST_SETUP(Flash)
 {
     MockIO_Init();
@@ -18,13 +22,12 @@ TEST_TEAR_DOWN(Flash)
 
 TEST(Flash, WriteSucceeds_ReadyImmediately)
 {
-    int result = 0;
-    IO_Write_Expect(0, 0x40);
-    IO_Write_Expect(0x1000, 0xBEEF);
-    IO_Read_ExpectAndReturn(0, 1 << 7);
-    IO_Read_ExpectAndReturn(0x1000, 0xBEEF);
-    result = Flash_Write(0x1000, 0xBEEF);
-    TEST_ASSERT_EQUAL_INT32(0, result);
+    IO_Write_Expect(CommandRegister, ProgramCommand);
+    IO_Write_Expect(address, data);
+    IO_Read_ExpectAndReturn(StatusRegister, ReadyBit);
+    IO_Read_ExpectAndReturn(address, data);
+    result = Flash_Write(address, data);
+    TEST_ASSERT_EQUAL_INT32(FLASH_SUCCESS, result);
     MockIO_Verify();
 }
 
