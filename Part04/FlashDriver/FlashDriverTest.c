@@ -16,6 +16,7 @@ TEST_SETUP(Flash)
 
 TEST_TEAR_DOWN(Flash)
 {
+    //MockIO_Verify();
     Flash_Destroy();
     MockIO_Destroy();
 }
