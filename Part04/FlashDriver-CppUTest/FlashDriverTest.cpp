@@ -7,10 +7,12 @@ TEST_GROUP(Flash)
     void setup()
     {
         MockIO_Init();
+        Flash_Create();
     }
 
     void teardown()
     {
+        Flash_Destroy();
         MockIO_Destroy();
     }
 };
