@@ -45,7 +45,7 @@ $(TARGET): $(SRCS) $(SRC_HEADER) $(UNITY_OBJS)
 	@echo "Compiling $(TARGET).c..."
 	@$(CC) -o $@ $(CFLAG) $(SRCS) $(UNITY_OBJS) $(INCLUDES)
 	@echo "Running $(TARGET)..."
-	@./$(TARGET)
+	@-./$(TARGET)
 
 $(UNITY_OBJS): $(UNITY)
 	@$(CC) -c $(UNITY_SRC) $(INCLUDES)

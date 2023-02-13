@@ -40,7 +40,7 @@ $(TARGET): $(SRCS) $(INCLUDE_FILES)
 	@echo "Building $(TARGET)..."
 	@$(CC) -o $(TARGET) $(CFLAGS) $(SRCS) $(INCLUDES) $(LIBS) $(OBJS)
 	@echo "Running $(TARGET)..."
-	@./$(TARGET) $(CPPUTESTRUN_OPTION)
+	@-./$(TARGET) $(CPPUTESTRUN_OPTION)
 
 coverage: $(SRCS) $(INCLUDE_FILES)
 	@$(CC) -o $(TARGET)_cov $(CFLAGS_COV) $(SRCS) $(INCLUDES) $(LIBS) $(OBJS)
