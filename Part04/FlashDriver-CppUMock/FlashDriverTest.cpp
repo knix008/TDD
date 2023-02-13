@@ -7,10 +7,12 @@ TEST_GROUP(FlashDriver){
     ioAddress address;
     ioData data;
     int result;
+
     void setup(){
         address = 0xfeed;
         data = 0x1dea;
     }
+    
     void teardown() {
         mock().checkExpectations();
         mock().clear();
