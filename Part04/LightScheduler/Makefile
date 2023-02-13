@@ -33,7 +33,7 @@ LIBS= /usr/lib/x86_64-linux-gnu/libCppUTest.a
 CPPUTESTRUN_OPTION= -c
 COVERAGE_INFO=testcoverage.info
 COVERAGE_OUTPUT_DIR=coverage
-.SILENT: $(TARGET) clean
+.SILENT: $(TARGET) coverage clean cclean
 
 $(TARGET): $(SRCS) $(INCLUDE_FILES)
 	@echo "Building $(TARGET)..."
