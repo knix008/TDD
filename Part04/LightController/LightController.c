@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <memory.h>
 #include "LightController.h"
-#include "LightDriver.h"
 
 static LightDriver lightDrivers[MAX_LIGHTS] = {NULL};
 
