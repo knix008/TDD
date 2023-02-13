@@ -87,6 +87,18 @@ TEST(Flash, WriteFails_Timeout)
     TEST_ASSERT_EQUAL_INT32(FLASH_TIMEOUT_ERROR, result);
 }
 
+TEST(Flash, WriteFails_TimeoutAtEndOfTime)
+{
+    FakeMicroTime_Init(0xffffffff, 500);
+    Flash_Create();
+    IO_Write_Expect(CommandRegister, ProgramCommand);
+    IO_Write_Expect(address, data);
+    for (int i = 0; i < 10; i++)
+        IO_Read_ExpectAndReturn(StatusRegister, ~ReadyBit);
+    result = Flash_Write(address, data);
+    TEST_ASSERT_EQUAL_INT32(FLASH_TIMEOUT_ERROR, result);
+}
+
 TEST_GROUP_RUNNER(Flash)
 {
     RUN_TEST_CASE(Flash, WriteSucceeds_ReadyImmediately);
@@ -95,6 +107,7 @@ TEST_GROUP_RUNNER(Flash)
     RUN_TEST_CASE(Flash, WriteFails_FlashReadBackError);
     RUN_TEST_CASE(Flash, WriteSucceeds_IgnoresOtherBitsUntilReady);
     RUN_TEST_CASE(Flash, WriteFails_Timeout);
+    RUN_TEST_CASE(Flash, WriteFails_TimeoutAtEndOfTime);
 }
 
 static void RunAllTests(void)
