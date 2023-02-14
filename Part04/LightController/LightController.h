@@ -1,5 +1,6 @@
 #ifndef __LIGHTCONTROLLER_H__
 #define __LIGHTCONTROLLER_H__
+
 #include <stdbool.h>
 #include "LightDriver.h"
 
