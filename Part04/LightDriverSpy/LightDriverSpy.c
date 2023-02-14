@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <memory.h>
+#include "LightDriver.h"
+#include "LightController.h"
 #include "LightDriverSpy.h"
 
-typedef struct LightDriverSpyStruct *LightDriverSpy;
 typedef struct LightDriverSpyStruct
 {
     LightDriverStruct base;
@@ -35,36 +36,46 @@ void LightDriverSpy_AddSpiesToController(void)
 
 LightDriver LightDriverSpy_Create(int id)
 {
-    LightDriverSpy self = calloc(1, sizeof(LightDriverSpyStruct));
-    self->base.type = TestLightDriver;
+    LightDriverSpy self = (LightDriverSpyStruct *)calloc(1, sizeof(LightDriverSpyStruct));
+    self->base.type = "Spy";
     self->base.id = id;
     return (LightDriver)self;
 }
 
-void LightDriverSpy_Destroy(LightDriver super)
+static void destroy(LightDriver base)
 {
-    LightDriverSpy self = (LightDriverSpy)super;
-    states[self->base.id] = LIGHT_STATE_UNKNOWN;
-    free(self);
+    free(base);
 }
 
-static void save(int id, int state)
+static void update(int id, int state)
 {
     states[id] = state;
     lastId = id;
     lastState = state;
 }
 
-void LightDriverSpy_TurnOn(LightDriver super)
+static void turnOn(LightDriver base)
 {
-    LightDriverSpy self = (LightDriverSpy)super;
-    save(self->base.id, LIGHT_ON);
+    LightDriverSpy self = (LightDriverSpy)base;
+    update(self->base.id, LIGHT_ON);
 }
 
-void LightDriverSpy_TurnOff(LightDriver super)
+static void turnOff(LightDriver base)
 {
-    LightDriverSpy self = (LightDriverSpy)super;
-    save(self->base.id, LIGHT_OFF);
+    LightDriverSpy self = (LightDriverSpy)base;
+    update(self->base.id, LIGHT_OFF);
+}
+
+static LightDriverInterfaceStruct interface =
+{
+        turnOn,
+        turnOff,
+        destroy
+};
+
+void LightDriverSpy_InstallInterface(void)
+{
+    LightDriver_SetInterface(&interface);
 }
 
 int LightDriverSpy_GetState(int id)

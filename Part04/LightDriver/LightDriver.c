@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include "LightDriver.h"
 
@@ -17,7 +17,9 @@ static bool isValid(LightDriver self)
 void LightDriver_TurnOn(LightDriver self)
 {
     if (isValid(self))
+    {
         interface->TurnOn(self);
+    }
 }
 
 void LightDriver_TurnOff(LightDriver self)

@@ -1,14 +1,16 @@
 #include <CppUTest/CommandLineTestRunner.h>
-#include <memory.h>
+#include "LightDriver.h"
 #include "LightController.h"
+#include "LightDriverSpy.h"
 
 TEST_GROUP(LightController)
 {
-    LightDriver spy;
     void setup()
     {
         LightController_Create();
         LightDriverSpy_AddSpiesToController();
+        LightDriverSpy_Reset();
+        LightDriverSpy_InstallInterface();
     }
 
     void teardown()

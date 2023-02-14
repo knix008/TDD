@@ -1,17 +1,33 @@
 TARGET= lightcontrollertest
 COVERAGE_SRC=LightControllerTest.cpp
 
+LIGHTDRIVERSPY_DIR= ../LightDriverSpy
 DEVICES_DIR= ../Devices
+LIGHTDRIVER_DIS= ../LightDriver
+COMMON_DIR= ../Common
 
 SRCS= LightControllerTest.cpp \
       LightController.c \
-	  LightDriverSpy.c
+	  $(LIGHTDRIVERSPY_DIR)/LightDriverSpy.c \
+	  $(DEVICES_DIR)/AcmeWirelessLightDriver.c \
+	  $(DEVICES_DIR)/MemMappedLightDriver.c \
+	  $(DEVICES_DIR)/X10LightDriver.c \
+	  $(LIGHTDRIVER_DIS)/LightDriver.c \
+	  $(COMMON_DIR)/Explodes.c
 
 INCLUDE_FILES= LightController.h \
-               $(DEVICES_DIR)/LightDriver.h \
-			   $(DEVICES_DIR)/LightDriverSpy.h
+      $(LIGHTDRIVERSPY_DIR)/LightDriverSpy.h \
+	  $(DEVICES_DIR)/AcmeWirelessLightDriver.h \
+	  $(DEVICES_DIR)/MemMappedLightDriver.h \
+	  $(DEVICES_DIR)/X10LightDriver.h \
+      $(LIGHTDRIVER_DIS)/LightDriver.h \
+	  $(COMMON_DIR)/Explodes.h
 
-INCLUDES= -I$(DEVICES_DIR)
+INCLUDES= -I$(LIGHTDRIVERSPY_DIR) \
+      -I$(DEVICES_DIR) \
+	  -I$(LIGHTDRIVER_DIS) \
+	  -I$(COMMON_DIR) \
+	  -I.
 
 CC= g++
 CFLAGS= -Wall
@@ -44,3 +60,6 @@ cclean:
 
 clean:
 	@-rm $(TARGET)
+
+all: $(TARGET) coverage
+cleanall: cclean clean
