@@ -9,6 +9,7 @@ void LightDriver_SetInterface(LightDriverInterface i)
     interface = i;
 }
 
+/*
 static bool isValid(LightDriver self)
 {
     return interface && self;
@@ -21,11 +22,18 @@ void LightDriver_TurnOn(LightDriver self)
         interface->TurnOn(self);
     }
 }
+*/
+
+void LightDriver_TurnOn(LightDriver self)
+{
+    if (self)
+        self->vtable->TurnOn(self);
+}
 
 void LightDriver_TurnOff(LightDriver self)
 {
-    if (isValid(self))
-        interface->TurnOff(self);
+    if (self)
+        self->vtable->TurnOff(self);
 }
 
 /*
@@ -38,8 +46,8 @@ void LightDriver_SetBrightness(LightDriver self, int level)
 
 void LightDriver_Destroy(LightDriver self)
 {
-    if (isValid(self))
-        interface->Destroy(self);
+    if (self)
+        self->vtable->Destroy(self);
 }
 
 const char *LightDriver_GetType(LightDriver driver)

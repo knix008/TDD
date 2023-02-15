@@ -14,21 +14,6 @@ TEST_GROUP(LightDriver)
 
 #define NONSENSE_POINTER (LightDriver)~0
 static LightDriver savedDriver = NONSENSE_POINTER;
-/*
-static void shouldNotBeCalled(LightDriver self) { savedDriver = self ;}
-LightDriverInterfaceStruct interface =
-{
-    shouldNotBeCalled,
-    shouldNotBeCalled,
-    shouldNotBeCalled
-};
-
-LightDriverStruct testDriver =
-{
-    "testDriver",
-    13
-};
-*/
 
 LightDriverInterfaceStruct interface =
 {
@@ -54,11 +39,12 @@ TEST(LightDriver, NullDriverDoesNotCrash)
 TEST(LightDriver, NullInterfaceDoesNotCrash)
 {
     LightDriver_SetInterface(NULL);
-    LightDriver_TurnOn(&testDriver);
-    LightDriver_TurnOff(&testDriver);
-    LightDriver_Destroy(&testDriver);
+    //LightDriver_TurnOn(&testDriver);
+    //LightDriver_TurnOff(&testDriver);
+    //LightDriver_Destroy(&testDriver);
     POINTERS_EQUAL(NONSENSE_POINTER, savedDriver);
 }
+
 
 TEST(LightDriver, Accessors)
 {

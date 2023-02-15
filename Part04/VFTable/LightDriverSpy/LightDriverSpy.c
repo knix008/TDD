@@ -34,6 +34,7 @@ void LightDriverSpy_AddSpiesToController(void)
     }
 }
 
+/*
 LightDriver LightDriverSpy_Create(int id)
 {
     LightDriverSpy self = (LightDriverSpyStruct *)calloc(1, sizeof(LightDriverSpyStruct));
@@ -41,6 +42,7 @@ LightDriver LightDriverSpy_Create(int id)
     self->base.id = id;
     return (LightDriver)self;
 }
+*/
 
 static void destroy(LightDriver base)
 {
@@ -83,6 +85,15 @@ static LightDriverInterfaceStruct interface =
         .Destroy = LightDriverSpy_Destroy
 };
 */
+
+LightDriver LightDriverSpy_Create(int id)
+{
+    LightDriverSpy self = (LightDriverSpyStruct *)calloc(1, sizeof(LightDriverSpyStruct));
+    self->base.vtable = &interface;
+    self->base.type = "Spy";
+    self->base.id = id;
+    return (LightDriver)self;
+}
 
 void LightDriverSpy_Destroy(LightDriver super)
 {

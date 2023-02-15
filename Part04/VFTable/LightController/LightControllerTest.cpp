@@ -5,19 +5,18 @@
 #include "CountingLightDriver.h"
 
 TEST_GROUP(LightController){
-    void setup(){
+    void setup()
+    {
         LightController_Create();
-LightDriverSpy_AddSpiesToController();
-LightDriverSpy_Reset();
-LightDriverSpy_InstallInterface();
-}
-
-void teardown()
-{
-    LightController_Destroy();
-}
-}
-;
+        LightDriverSpy_AddSpiesToController();
+        LightDriverSpy_Reset();
+        //LightDriverSpy_InstallInterface();
+    }
+    void teardown()
+    {
+        LightController_Destroy();
+    }
+};
 
 TEST(LightController, TurnOn)
 {
