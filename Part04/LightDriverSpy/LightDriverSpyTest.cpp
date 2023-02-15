@@ -1,7 +1,6 @@
 #include <CppUTest/CommandLineTestRunner.h>
 #include "LightDriverSpy.h"
 
-//START: firstTwoTests
 TEST_GROUP(LightDriverSpy)
 {
     LightDriver lightDriverSpy;
@@ -28,7 +27,6 @@ TEST(LightDriverSpy, On)
     LightDriverSpy_TurnOn(lightDriverSpy);
     LONGS_EQUAL(LIGHT_ON, LightDriverSpy_GetState(1));
 }
-//END: firstTwoTests
 
 TEST(LightDriverSpy, Off)
 {

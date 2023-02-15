@@ -13,6 +13,7 @@ void LightDriverSpy_InstallInterface(void);
 void LightDriverSpy_Destroy(LightDriver super);
 void LightDriverSpy_TurnOn(LightDriver super);
 void LightDriverSpy_TurnOff(LightDriver super);
+
 int LightDriverSpy_GetState(int id);
 int LightDriverSpy_GetLastId(void);
 int LightDriverSpy_GetLastState(void);
