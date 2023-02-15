@@ -73,6 +73,32 @@ static LightDriverInterfaceStruct interface =
         destroy
 };
 
+void LightDriverSpy_Destroy(LightDriver super)
+{
+    LightDriverSpy self = (LightDriverSpy)super;
+    states[self->base.id] = LIGHT_STATE_UNKNOWN;
+    free(self);
+}
+
+static void save(int id, int state)
+{
+    states[id] = state;
+    lastId = id;
+    lastState = state;
+}
+
+void LightDriverSpy_TurnOn(LightDriver super)
+{
+    LightDriverSpy self = (LightDriverSpy)super;
+    save(self->base.id, LIGHT_ON);
+}
+
+void LightDriverSpy_TurnOff(LightDriver super)
+{
+    LightDriverSpy self = (LightDriverSpy)super;
+    save(self->base.id, LIGHT_OFF);
+}
+
 void LightDriverSpy_InstallInterface(void)
 {
     LightDriver_SetInterface(&interface);

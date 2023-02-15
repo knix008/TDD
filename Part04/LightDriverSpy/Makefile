@@ -1,32 +1,20 @@
-TARGET= lightcontrollertest
-COVERAGE_SRC=LightControllerTest.cpp
+TARGET= lightdriverspytest
+COVERAGE_SRC=LightDriverSpyTest.cpp
 
-LIGHTDRIVERSPY_DIR= ../LightDriverSpy
-DEVICES_DIR= ../Devices
 LIGHTDRIVER_DIR= ../LightDriver
-COMMON_DIR= ../Common
+LIGHTCONTROLLER_DIR= ../LightController
 
-SRCS= LightControllerTest.cpp \
-      LightController.c \
-	  $(LIGHTDRIVERSPY_DIR)/LightDriverSpy.c \
-	  $(DEVICES_DIR)/AcmeWirelessLightDriver.c \
-	  $(DEVICES_DIR)/MemMappedLightDriver.c \
-	  $(DEVICES_DIR)/X10LightDriver.c \
+SRCS= $(COVERAGE_SRC) \
+      LightDriverSpy.c \
 	  $(LIGHTDRIVER_DIR)/LightDriver.c \
-	  $(COMMON_DIR)/Explodes.c
+	  $(LIGHTCONTROLLER_DIR)/LightController.c
 
-INCLUDE_FILES= LightController.h \
-      $(LIGHTDRIVERSPY_DIR)/LightDriverSpy.h \
-	  $(DEVICES_DIR)/AcmeWirelessLightDriver.h \
-	  $(DEVICES_DIR)/MemMappedLightDriver.h \
-	  $(DEVICES_DIR)/X10LightDriver.h \
+INCLUDE_FILES= LightDriverSpy.h \
       $(LIGHTDRIVER_DIR)/LightDriver.h \
-	  $(COMMON_DIR)/Explodes.h
+	  $(LIGHTCONTROLLER_DIR)/LightController.h
 
-INCLUDES= -I$(LIGHTDRIVERSPY_DIR) \
-      -I$(DEVICES_DIR) \
-	  -I$(LIGHTDRIVER_DIR) \
-	  -I$(COMMON_DIR) \
+INCLUDES= -I$(LIGHTDRIVER_DIR) \
+	  -I$(LIGHTCONTROLLER_DIR) \
 	  -I.
 
 CC= g++
