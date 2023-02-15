@@ -39,9 +39,9 @@ TEST(LightDriver, NullDriverDoesNotCrash)
 TEST(LightDriver, NullInterfaceDoesNotCrash)
 {
     LightDriver_SetInterface(NULL);
-    //LightDriver_TurnOn(&testDriver);
-    //LightDriver_TurnOff(&testDriver);
-    //LightDriver_Destroy(&testDriver);
+    LightDriver_TurnOn(&testDriver);
+    LightDriver_TurnOff(&testDriver);
+    LightDriver_Destroy(&testDriver);
     POINTERS_EQUAL(NONSENSE_POINTER, savedDriver);
 }
 

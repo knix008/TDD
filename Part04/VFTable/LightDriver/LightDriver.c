@@ -27,13 +27,19 @@ void LightDriver_TurnOn(LightDriver self)
 void LightDriver_TurnOn(LightDriver self)
 {
     if (self)
-        self->vtable->TurnOn(self);
+    {
+        if(self->vtable->TurnOn)
+            self->vtable->TurnOn(self);
+    }
 }
 
 void LightDriver_TurnOff(LightDriver self)
 {
     if (self)
-        self->vtable->TurnOff(self);
+    {
+        if(self->vtable->TurnOff)
+            self->vtable->TurnOn(self);
+    }
 }
 
 /*
@@ -47,7 +53,10 @@ void LightDriver_SetBrightness(LightDriver self, int level)
 void LightDriver_Destroy(LightDriver self)
 {
     if (self)
-        self->vtable->Destroy(self);
+    {
+        if(self->vtable->Destroy)
+            self->vtable->Destroy(self);
+    }
 }
 
 const char *LightDriver_GetType(LightDriver driver)
