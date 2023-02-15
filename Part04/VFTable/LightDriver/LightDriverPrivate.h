@@ -5,6 +5,7 @@ typedef struct LightDriverInterfaceStruct *LightDriverInterface;
 
 typedef struct LightDriverStruct
 {
+     LightDriverInterface vtable;
     const char *type;
     int id;
 } LightDriverStruct;

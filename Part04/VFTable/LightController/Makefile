@@ -5,6 +5,7 @@ LIGHTDRIVERSPY_DIR= ../LightDriverSpy
 DEVICES_DIR= ../Devices
 LIGHTDRIVER_DIR= ../LightDriver
 COMMON_DIR= ../Common
+COUNTINGLIGHTDRIVER_DIR= ../CountingLightDriver
 
 SRCS= LightControllerTest.cpp \
       LightController.c \
@@ -13,7 +14,8 @@ SRCS= LightControllerTest.cpp \
 	  $(DEVICES_DIR)/MemMappedLightDriver.c \
 	  $(DEVICES_DIR)/X10LightDriver.c \
 	  $(LIGHTDRIVER_DIR)/LightDriver.c \
-	  $(COMMON_DIR)/Explodes.c
+	  $(COMMON_DIR)/Explodes.c \
+	  $(COUNTINGLIGHTDRIVER_DIR)/CountingLightDriver.c
 
 INCLUDE_FILES= LightController.h \
       $(LIGHTDRIVERSPY_DIR)/LightDriverSpy.h \
@@ -21,12 +23,14 @@ INCLUDE_FILES= LightController.h \
 	  $(DEVICES_DIR)/MemMappedLightDriver.h \
 	  $(DEVICES_DIR)/X10LightDriver.h \
       $(LIGHTDRIVER_DIR)/LightDriver.h \
-	  $(COMMON_DIR)/Explodes.h
+	  $(COMMON_DIR)/Explodes.h \
+	  $(COUNTINGLIGHTDRIVER_DIR)/CountingLightDriver.h
 
 INCLUDES= -I$(LIGHTDRIVERSPY_DIR) \
       -I$(DEVICES_DIR) \
 	  -I$(LIGHTDRIVER_DIR) \
 	  -I$(COMMON_DIR) \
+	  -I$(COUNTINGLIGHTDRIVER_DIR) \
 	  -I.
 
 CC= g++
