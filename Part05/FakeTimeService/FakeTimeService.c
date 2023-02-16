@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include "Time.h"
+#include "TimeService.h"
 #include "FakeTimeService.h"
 
 static Time fakeTime;

@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
+#include "Time.h"
 #include "TimeService.h"
 
 void TimeService_Create(void)

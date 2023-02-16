@@ -1,4 +1,5 @@
 #include <CppUTest/CommandLineTestRunner.h>
+#include "Time.h"
 #include "TimeService.h"
 #include "FakeTimeService.h"
 
@@ -15,7 +16,7 @@ TEST(FakeTimeService, Create)
     Time time;
     TimeService_GetTime(&time);
     LONGS_EQUAL(TIME_UNKNOWN, time.minuteOfDay);
-    LONGS_EQUAL(TIME_UNKNOWN, time.dayOfWeek);
+    LONGS_EQUAL(NONE, time.dayOfWeek);
 }
 
 TEST(FakeTimeService, Set)
