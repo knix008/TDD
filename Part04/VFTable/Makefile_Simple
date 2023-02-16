@@ -1,0 +1,11 @@
+all:
+	@-make -C LightController
+	@-make -C LightControllerSpy
+	@-make -C LightDriver
+	@-make -C LightDriverSpy
+
+clean:
+	@-make -C LightController clean
+	@-make -C LightControllerSpy clean
+	@-make -C LightDriver clean
+	@-make -C LightDriverSpy clean
