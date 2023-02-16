@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "LightController.h"
+#include "Time.h"
 #include "TimeService.h"
 #include "RandomMinute.h"
 #include "LightScheduler.h"

@@ -1,6 +1,8 @@
 TARGET= lightschedulertest
 COVERAGE_SRC=LightSchedulerTest.cpp
 
+TIME_DIR = ../Time
+TIMESERVICE_DIR = ../TimeService
 FAKETIMESERVICE_DIR= ../FakeTimeService
 FAKERANDOMMINUTE_DIR= ../FakeRandomMinute
 LIGHTCONTROLLERSPY_DIR= ../LightControllerSpy
@@ -9,22 +11,27 @@ RANDOMMINUTE_DIR=../RandomMinute
 #SRCS= LightSchedulerRandomTest.cpp
 SRCS= LightSchedulerTest.cpp \
       LightScheduler.c \
+	  $(TIME_DIR)/Time.c \
       $(FAKETIMESERVICE_DIR)/FakeTimeService.c \
 	  $(FAKERANDOMMINUTE_DIR)/FakeRandomMinute.c \
       $(LIGHTCONTROLLERSPY_DIR)/LightControllerSpy.c \
 	  $(RANDOMMINUTE_DIR)/RandomMinute.c
 
 INCLUDE_FILES= LightScheduler.h \
+               $(TIME_DIR)/Time.h \
+			   $(TIMESERVICE_DIR)/TimeService.h \
                $(FAKETIMESERVICE_DIR)/FakeTimeService.h \
 			   $(FAKERANDOMMINUTE_DIR)/FakeRandomMinute.h \
                $(LIGHTCONTROLLERSPY_DIR)/LightControllerSpy.h \
 			   $(RANDOMMINUTE_DIR)/RandomMinute.h
 
-INCLUDES= -I$(FAKETIMESERVICE_DIR) \
+INCLUDES= -I$(TIME_DIR) \
+          -I$(TIMESERVICE_DIR) \
+          -I$(FAKETIMESERVICE_DIR) \
           -I$(FAKERANDOMMINUTE_DIR) \
           -I$(LIGHTCONTROLLERSPY_DIR) \
 		  -I$(RANDOMMINUTE_DIR)
-            
+
 CC= g++
 CFLAGS= -Wall
 CFLAGS_COV= -Wall -fprofile-arcs -ftest-coverage -g

@@ -1,5 +1,7 @@
 #include <CppUTest/CommandLineTestRunner.h>
 #include <memory.h>
+#include "Time.h"
+#include "TimeService.h"
 #include "FakeTimeService.h"
 #include "FakeRandomMinute.h"
 #include "LightControllerSpy.h"

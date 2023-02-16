@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdbool.h>
 #include "Time.h"
 #include "TimeService.h"
 #include "FakeTimeService.h"
@@ -47,6 +48,16 @@ void TimeService_GetTime(Time *time)
     time->dayOfWeek = fakeTime.dayOfWeek;
 }
 
+int TimeService_GetMinute(void)
+{
+    return fakeTime.minuteOfDay;
+}
+
+int TimeService_GetDay(void)
+{
+    return fakeTime.dayOfWeek;
+}
+
 void FakeTimeService_SetMinute(int minute)
 {
     fakeTime.minuteOfDay = minute;
@@ -65,4 +76,23 @@ WakeupCallback FakeTimeSource_GetAlarmCallback(void)
 int FakeTimeSource_GetAlarmPeriod(void)
 {
     return period;
+}
+
+bool TimeService_MatchesNow(int reactionDay, int minute)
+{
+    int today;
+
+    if (TimeService_GetMinute() != minute)
+        return false;
+
+    today = TimeService_GetDay();
+    if (reactionDay == EVERYDAY)
+        return true;
+    if (reactionDay == today)
+        return true;
+    if (reactionDay == WEEKEND && (SATURDAY == today || SUNDAY == today))
+        return true;
+    if (reactionDay == WEEKDAY && today >= MONDAY && today <= FRIDAY)
+        return true;
+    return false;
 }

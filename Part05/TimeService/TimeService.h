@@ -12,9 +12,6 @@ typedef void (*WakeupCallback)(void);
 
 void TimeService_SetPeriodicAlarmInSeconds(int seconds, WakeupCallback);
 void TimeService_CancelPeriodicAlarmInSeconds(int seconds, WakeupCallback);
-
-bool Time_MatchesDayOfWeek(Time *, Day day);
-bool Time_MatchesMinuteOfDay(Time *, int minute);
 bool TimeService_MatchesNow(int reactionDay, int minute);
 
 #endif
