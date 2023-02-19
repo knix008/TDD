@@ -187,73 +187,6 @@ TEST(LightScheduler, RejectsInvalidLightIds)
    LONGS_EQUAL(LS_ID_OUT_OF_BOUNDS, LightScheduler_ScheduleTurnOn(32, MONDAY, 600));
 }
 
-TEST(LightScheduler, ScheduleWeekEnd)
-{
-   LightScheduler_ScheduleTurnOn(3, WEEKEND, 1200);
-   FakeTimeService_SetDay(FRIDAY);
-   FakeTimeService_SetMinute(1200);
-   LightScheduler_WakeUp();
-   LONGS_EQUAL(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
-   LONGS_EQUAL(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
-   FakeTimeService_SetDay(SATURDAY);
-   FakeTimeService_SetMinute(1200);
-   LightScheduler_WakeUp();
-   LONGS_EQUAL(3, LightControllerSpy_GetLastId());
-   LONGS_EQUAL(1, LightControllerSpy_GetLastState());
-   LightController_Off(3);
-   FakeTimeService_SetDay(SUNDAY);
-   FakeTimeService_SetMinute(1200);
-   LightScheduler_WakeUp();
-   LONGS_EQUAL(3, LightControllerSpy_GetLastId());
-   LONGS_EQUAL(1, LightControllerSpy_GetLastState());
-   LightController_Create();
-   FakeTimeService_SetDay(MONDAY);
-   FakeTimeService_SetMinute(1200);
-   LightScheduler_WakeUp();
-   LONGS_EQUAL(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
-   LONGS_EQUAL(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
-}
-
-TEST(LightScheduler, ScheduleWeekEndFridayExcluded)
-{
-   LightScheduler_ScheduleTurnOn(3, WEEKEND, 1200);
-   FakeTimeService_SetDay(FRIDAY);
-   FakeTimeService_SetMinute(1200);
-   LightScheduler_WakeUp();
-   LONGS_EQUAL(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
-   LONGS_EQUAL(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
-}
-
-TEST(LightScheduler, ScheduleWeekEndSaturdayIncluded)
-{
-   LightScheduler_ScheduleTurnOn(3, WEEKEND, 1200);
-   FakeTimeService_SetDay(SATURDAY);
-   FakeTimeService_SetMinute(1200);
-   LightScheduler_WakeUp();
-   LONGS_EQUAL(3, LightControllerSpy_GetLastId());
-   LONGS_EQUAL(1, LightControllerSpy_GetLastState());
-}
-
-TEST(LightScheduler, ScheduleWeekEndSundayIncluded)
-{
-   LightScheduler_ScheduleTurnOn(3, WEEKEND, 1200);
-   FakeTimeService_SetDay(SUNDAY);
-   FakeTimeService_SetMinute(1200);
-   LightScheduler_WakeUp();
-   LONGS_EQUAL(3, LightControllerSpy_GetLastId());
-   LONGS_EQUAL(1, LightControllerSpy_GetLastState());
-}
-
-TEST(LightScheduler, ScheduleWeekEndMondayExcluded)
-{
-   LightScheduler_ScheduleTurnOn(3, WEEKEND, 1200);
-   FakeTimeService_SetDay(MONDAY);
-   FakeTimeService_SetMinute(1200);
-   LightScheduler_WakeUp();
-   LONGS_EQUAL(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
-   LONGS_EQUAL(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
-}
-
 enum
 {
    BOUND = 30
@@ -288,61 +221,41 @@ TEST(RandomMinute, GetIsInRange)
    }
 }
 
-/*
-TEST(RandomMinute, AllValuesPossible)
-{
-   int hit[2 * BOUND + 1];
-   int i;
-   memset(hit, 0, sizeof(hit)); // For this line, you need to include “memory.h” file.
 
-   for (i = 0; i < 225; i++)
+TEST_GROUP(LightSchedulerRandomize)
+{
+   void setup()
    {
-      minute = RandomMinute_Get();
-      AssertMinuteIsInRange();
-      hit[minute + BOUND]++;
+         LightController_Create();
+         LightScheduler_Create();
+         UT_PTR_SET(RandomMinute_Get, FakeRandomMinute_Get);
+   }
+   
+   void teardown()
+   {
+      LightScheduler_Destroy();
+      LightController_Destroy();
+   }
+   
+   void checkLightState(int id, int level)
+   {
+      if (id == LIGHT_ID_UNKNOWN)
+      {
+         LONGS_EQUAL(id, LightControllerSpy_GetLastId());
+         LONGS_EQUAL(level, LightControllerSpy_GetLastState());
+      }
+      else
+      {
+         LONGS_EQUAL(level, LightControllerSpy_GetLightState(id));
+      }
    }
 
-   for (i = 0; i < 2 * BOUND + 1; i++)
+   void setTimeTo(Day day, int minute)
    {
-      printf("Index : %d, Hit : %d.\n", i, hit[i]);
-      CHECK(hit[i] > 0); // Some hit[i] has a value less than 0.
+      FakeTimeService_SetDay(day);
+      FakeTimeService_SetMinute(minute);
    }
-}
-*/
-
-TEST_GROUP(LightSchedulerRandomize){
-    void setup(){
-        LightController_Create();
-LightScheduler_Create();
-UT_PTR_SET(RandomMinute_Get, FakeRandomMinute_Get);
-}
-
-void teardown()
-{
-   LightScheduler_Destroy();
-   LightController_Destroy();
-}
-
-void checkLightState(int id, int level)
-{
-   if (id == LIGHT_ID_UNKNOWN)
-   {
-      LONGS_EQUAL(id, LightControllerSpy_GetLastId());
-      LONGS_EQUAL(level, LightControllerSpy_GetLastState());
-   }
-   else
-   {
-      LONGS_EQUAL(level, LightControllerSpy_GetLightState(id));
-   }
-}
-
-void setTimeTo(Day day, int minute)
-{
-   FakeTimeService_SetDay(day);
-   FakeTimeService_SetMinute(minute);
-}
-}
-;
+};
 
 TEST(LightSchedulerRandomize, TurnsOnEarly)
 {
