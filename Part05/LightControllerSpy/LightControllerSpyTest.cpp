@@ -1,4 +1,7 @@
 #include <CppUTest/CommandLineTestRunner.h>
+#include "LightDriver.h"
+#include "LightDriverSpy.h"
+#include "LightController.h"
 #include "LightControllerSpy.h"
 
 TEST_GROUP(LightControllerSpy){
@@ -20,15 +23,15 @@ TEST(LightControllerSpy, Create)
 
 TEST(LightControllerSpy, RememberTheLastLightIdControlled)
 {
-    LightController_On(10);
+    LightController_TurnOn(10);
     LONGS_EQUAL(10, LightControllerSpy_GetLastId());
     LONGS_EQUAL(LIGHT_ON, LightControllerSpy_GetLastState());
 }
 
 TEST(LightControllerSpy, RememberAllLightStates)
 {
-    LightController_On(0);
-    LightController_Off(31);
+    LightController_TurnOn(0);
+    LightController_TurnOff(31);
     LONGS_EQUAL(LIGHT_ON, LightControllerSpy_GetLightState(0));
     LONGS_EQUAL(LIGHT_OFF, LightControllerSpy_GetLightState(31));
 }

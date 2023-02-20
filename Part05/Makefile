@@ -1,6 +1,10 @@
 DIRS = FakeTimeService \
+       LightController \
        LightControllerSpy \
-	   LightScheduler
+	   LightDriver \
+	   LightDriverSpy \
+	   LightScheduler \
+	   LightScheduler-R01
 	   
 .PHONY: all clean
 

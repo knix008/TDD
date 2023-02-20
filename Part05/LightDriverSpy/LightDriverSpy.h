@@ -1,0 +1,22 @@
+#ifndef __LIGHTDRIVERSPY__H__
+#define __LIGHTDRIVERSPY__H__
+
+#include "LightDriver.h"
+
+typedef struct LightDriverSpyStruct *LightDriverSpy;
+
+LightDriver LightDriverSpy_Create(int id);
+
+/* Functions just needed by the spy */
+void LightDriverSpy_Reset(void);
+void LightDriverSpy_InstallInterface(void);
+void LightDriverSpy_Destroy(LightDriver super);
+void LightDriverSpy_TurnOn(LightDriver super);
+void LightDriverSpy_TurnOff(LightDriver super);
+
+int LightDriverSpy_GetState(int id);
+int LightDriverSpy_GetLastId(void);
+int LightDriverSpy_GetLastState(void);
+void LightDriverSpy_AddSpiesToController(void);
+
+#endif

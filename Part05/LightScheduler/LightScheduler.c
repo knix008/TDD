@@ -1,10 +1,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "LightController.h"
 #include "Time.h"
 #include "TimeService.h"
 #include "RandomMinute.h"
+#include "LightDriver.h"
+#include "LightController.h"
 #include "LightScheduler.h"
 
 enum
@@ -131,9 +132,9 @@ static bool isInUse(ScheduledLightEvent *event)
 static void operateLight(ScheduledLightEvent *event)
 {
     if (event->event == TURN_ON)
-        LightController_On(event->id);
+        LightController_TurnOn(event->id);
     else if (TURN_OFF == event->event)
-        LightController_Off(event->id);
+        LightController_TurnOff(event->id);
 }
 
 static void resetRandomize(ScheduledLightEvent *event)

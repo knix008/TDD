@@ -1,14 +1,25 @@
 TARGET= lightcontrollertest
 
-SRCS= LightControllerSpyTest.cpp \
-      LightControllerSpy.c
+LIGHTCONTROLLER_DIR= ../LightController
+LIGHTDRIVER_DIR= ../LightDriver
+LIGHTDRIVERSPY_DIR= ../LightDriverSpy
 
-INCLUDE_FILES= LightController.h \
+SRCS= LightControllerSpyTest.cpp \
+      LightControllerSpy.c \
+	  $(LIGHTDRIVER_DIR)/LightDriver.c
+
+INCLUDE_FILES= $(LIGHTCONTROLLER_DIR)/LightController.h \
+               $(LIGHTDRIVER_DIR)/LightDriver.h \
+			   $(LIGHTDRIVERSPY_DIR)/LightDriverSpy.h \
                LightControllerSpy.h
+
+INCLUDES= -I$(LIGHTCONTROLLER_DIR) \
+          -I$(LIGHTDRIVER_DIR) \
+		  -I$(LIGHTDRIVERSPY_DIR)
 
 CC= g++
 CFLAGS= -Wall
-INCLUDES= -I/usr/include/CppUTest
+INCLUDES+= -I/usr/include/CppUTest
 LIBS= /usr/lib/x86_64-linux-gnu/libCppUTest.a
 CPPUTESTRUN_OPTION= -c
 .SILENT: $(TARGET) clean
