@@ -1,11 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "Time.h"
-#include "TimeService.h"
-#include "RandomMinute.h"
-#include "LightDriver.h"
-#include "LightController.h"
 #include "LightScheduler.h"
 
 enum
