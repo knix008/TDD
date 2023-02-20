@@ -1,4 +1,5 @@
-DIRS = FakeTimeService \
+DIRS = Time \
+       FakeTimeService \
        LightController \
        LightControllerSpy \
 	   LightDriver \
