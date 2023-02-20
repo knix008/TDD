@@ -160,13 +160,13 @@ static bool isEventDueNow(Time *time, ScheduledLightEvent *event)
 
 static void processEventsDueNow(Time *time, ScheduledLightEvent *event)
 {
-    if (isInUse(event))
+    if (!isInUse(event))
+        return;
+
+    if (isEventDueNow(time, event))
     {
-        if (isEventDueNow(time, event))
-        {
-            operateLight(event);
-            resetRandomize(event);
-        }
+        operateLight(event);
+        resetRandomize(event);
     }
 }
 
