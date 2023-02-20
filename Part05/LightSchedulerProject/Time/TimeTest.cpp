@@ -65,6 +65,44 @@ TEST(Time, NotWeekendDays)
     givenThatItIs(FRIDAY);
 }
 
+TEST(Time, WeekDays)
+{
+    givenThatItIs(MONDAY);
+    CheckThatTimeMatches(WEEKDAY);
+    givenThatItIs(TUESDAY);
+    CheckThatTimeMatches(WEEKDAY);
+    givenThatItIs(WEDNESDAY);
+    CheckThatTimeMatches(WEEKDAY);
+    givenThatItIs(THURSDAY);
+    CheckThatTimeMatches(WEEKDAY);
+    givenThatItIs(FRIDAY);
+}
+
+TEST(Time, NotWeekDays)
+{
+    givenThatItIs(SATURDAY);
+    CheckThatTimeDoesNotMatch(WEEKDAY);
+    givenThatItIs(SUNDAY);
+    CheckThatTimeDoesNotMatch(WEEKDAY);
+}
+
+TEST(Time, Everyday)
+{
+    givenThatItIs(SATURDAY);
+    CheckThatTimeMatches(EVERYDAY);
+    givenThatItIs(SUNDAY);
+    CheckThatTimeMatches(EVERYDAY);
+    givenThatItIs(MONDAY);
+    CheckThatTimeMatches(EVERYDAY);
+    givenThatItIs(TUESDAY);
+    CheckThatTimeMatches(EVERYDAY);
+    givenThatItIs(WEDNESDAY);
+    CheckThatTimeMatches(EVERYDAY);
+    givenThatItIs(THURSDAY);
+    CheckThatTimeMatches(EVERYDAY);
+    givenThatItIs(FRIDAY);
+}
+
 int main(int ac, char **av)
 {
    int result = CommandLineTestRunner::RunAllTests(ac, av);
