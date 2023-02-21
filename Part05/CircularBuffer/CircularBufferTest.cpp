@@ -166,6 +166,8 @@ TEST(CircularBuffer, PrintAfterOneIsPut)
     FormatOutputSpy_Destroy();
 }
 
+IMPORT_TEST_GROUP(CircularBufferPrint);
+
 int main(int ac, char **av)
 {
     int result = CommandLineTestRunner::RunAllTests(ac, av);
