@@ -7,7 +7,8 @@ FORMATOUTPUTSPY_DIR= ../FormatOutputSpy
 SRCS= $(COVERAGE_SRC) \
       $(FORMATOUTPUTSPY_DIR)/FormatOutputSpy.c \
 	  $(UTIL_DIR)/Util.c \
-	  CircularBuffer.c
+	  CircularBuffer.c \
+	  CircularBufferPrintTest.cpp
 
 INCLUDE_FILES= $(UTIL_DIR)/Util.h \
                $(FORMATOUTPUTSPY_DIR)/FormatOutputSpy.h \

@@ -1,90 +1,169 @@
 #include <CppUTest/CommandLineTestRunner.h>
 #include "Util.h"
-#include "FormatOutputSpy.h"
 #include "CircularBuffer.h"
+#include "FormatOutputSpy.h"
 
-TEST_GROUP(CircularBufferPrint)
+TEST_GROUP(CircularBuffer)
 {
     CircularBuffer buffer;
-    const char * expectedOutput;
-    const char * actualOutput;
+
     void setup()
     {
-        UT_PTR_SET(FormatOutput, FormatOutputSpy);
-        FormatOutputSpy_Create(100);
-        actualOutput = FormatOutputSpy_GetOutput();
-        buffer = CircularBuffer_Create(10);
+      buffer = CircularBuffer_Create(10);
     }
 
     void teardown()
     {
-        CircularBuffer_Destroy(buffer);
-        FormatOutputSpy_Destroy();
+       CHECK_TRUE(CircularBuffer_VerifyIntegrity(buffer));
+       CircularBuffer_Destroy(buffer);
+    }
+
+    void putManyInTheBuffer(int seed, int howMany)
+    {
+        for (int i = 0; i < howMany; i++)
+            CircularBuffer_Put(buffer, i+seed);
     }
 };
 
-TEST(CircularBufferPrint, PrintEmpty)
+TEST(CircularBuffer, Create)
 {
-    expectedOutput = "Circular buffer content:\n<>\n";
-    CircularBuffer_Print(buffer);
-    STRCMP_EQUAL(expectedOutput, actualOutput);
+
 }
 
-TEST(CircularBufferPrint, PrintAfterOneIsPut)
+TEST(CircularBuffer, EmptyAfterCreation)
 {
-    expectedOutput = "Circular buffer content:\n<17>\n";
+    CHECK_TRUE(CircularBuffer_IsEmpty(buffer));
+}
+
+TEST(CircularBuffer, NotFullAfterCreation)
+{
+    CHECK_FALSE(CircularBuffer_IsFull(buffer));
+}
+
+TEST(CircularBuffer, NotEmpty)
+{
+    CircularBuffer_Put(buffer, 10046);
+    CHECK_FALSE(CircularBuffer_IsEmpty(buffer));
+}
+
+TEST(CircularBuffer, NotEmptyThenEmpty)
+{
+    CircularBuffer_Put(buffer, 4567);
+    CHECK_FALSE(CircularBuffer_IsEmpty(buffer));
+    CircularBuffer_Get(buffer);
+    CHECK_TRUE(CircularBuffer_IsEmpty(buffer));
+}
+
+TEST(CircularBuffer, GetPutOneValue)
+{
+    CircularBuffer_Put(buffer, 4567);
+    LONGS_EQUAL(4567, CircularBuffer_Get(buffer));
+}
+
+TEST(CircularBuffer, GetPutAFew)
+{
+    CircularBuffer_Put(buffer, 1);
+    CircularBuffer_Put(buffer, 2);
+    CircularBuffer_Put(buffer, 3);
+    LONGS_EQUAL(1, CircularBuffer_Get(buffer));
+    LONGS_EQUAL(2, CircularBuffer_Get(buffer));
+    LONGS_EQUAL(3, CircularBuffer_Get(buffer));
+}
+
+TEST(CircularBuffer, Capacity)
+{
+    CircularBuffer b = CircularBuffer_Create(2);
+    LONGS_EQUAL(2, CircularBuffer_Capacity(b));
+    CircularBuffer_Destroy(b);
+}
+
+TEST(CircularBuffer, IsFull)
+{
+    for (int i = 0; i < CircularBuffer_Capacity(buffer); i++)
+        CircularBuffer_Put(buffer, i+100);
+
+    CHECK_TRUE(CircularBuffer_IsFull(buffer));
+}
+
+TEST(CircularBuffer, EmptyToFullToEmpty)
+{
+    for (int i = 0; i < CircularBuffer_Capacity(buffer); i++)
+        CircularBuffer_Put(buffer, i+100);
+
+    CHECK_TRUE(CircularBuffer_IsFull(buffer));
+
+    for (int j = 0; j < CircularBuffer_Capacity(buffer); j++)
+        LONGS_EQUAL(j+100, CircularBuffer_Get(buffer));
+
+    CHECK_TRUE(CircularBuffer_IsEmpty(buffer));
+    CHECK_FALSE(CircularBuffer_IsFull(buffer));
+}
+
+TEST(CircularBuffer, WrapAround)
+{
+    int capacity = CircularBuffer_Capacity(buffer);
+    for (int i = 0; i < capacity; i++)
+        CircularBuffer_Put(buffer, i+100);
+
+    CHECK_TRUE(CircularBuffer_IsFull(buffer));
+    LONGS_EQUAL(100, CircularBuffer_Get(buffer));
+    CHECK_FALSE(CircularBuffer_IsFull(buffer));
+    CircularBuffer_Put(buffer, 1000);
+    CHECK_TRUE(CircularBuffer_IsFull(buffer));
+
+    for (int j = 1; j < capacity; j++)
+        LONGS_EQUAL(j+100, CircularBuffer_Get(buffer));
+
+    LONGS_EQUAL(1000, CircularBuffer_Get(buffer));
+    CHECK_TRUE(CircularBuffer_IsEmpty(buffer));
+}
+
+TEST(CircularBuffer, PutToFullThrows)
+{
+    putManyInTheBuffer(900, CircularBuffer_Capacity(buffer));
+    CHECK_FALSE(CircularBuffer_Put(buffer, 9999));
+}
+
+TEST(CircularBuffer, PutToFullDoesNotDamageContents)
+{
+    putManyInTheBuffer(900, CircularBuffer_Capacity(buffer));
+
+        CircularBuffer_Put(buffer, 9999);
+
+    for (int i = 0; i < CircularBuffer_Capacity(buffer); i++)
+        LONGS_EQUAL(i+900, CircularBuffer_Get(buffer));
+
+    CHECK_TRUE(CircularBuffer_IsEmpty(buffer));
+}
+
+TEST(CircularBuffer, GetFromEmptyReturns0)
+{
+    LONGS_EQUAL(0, CircularBuffer_Get(buffer));
+}
+
+TEST(CircularBuffer, PrintEmpty)
+{
+    const char* expectedOutput = "Circular buffer content:\n<>\n";
+    FormatOutputSpy_Create(100);
+    UT_PTR_SET(FormatOutput, FormatOutputSpy);
+
+    CircularBuffer_Print(buffer);
+
+    STRCMP_EQUAL(expectedOutput, FormatOutputSpy_GetOutput());
+    FormatOutputSpy_Destroy();
+}
+
+TEST(CircularBuffer, PrintAfterOneIsPut)
+{
+    const char* expectedOutput = "Circular buffer content:\n<17>\n";
+    FormatOutputSpy_Create(100);
+    UT_PTR_SET(FormatOutput, FormatOutputSpy);
+
     CircularBuffer_Put(buffer, 17);
     CircularBuffer_Print(buffer);
-    STRCMP_EQUAL(expectedOutput, actualOutput);
-}
 
-TEST(CircularBufferPrint, PrintNotYetWrappedOrFull)
-{
-    expectedOutput = "Circular buffer content:\n<10, 20, 30>\n";
-    CircularBuffer_Put(buffer, 10);
-    CircularBuffer_Put(buffer, 20);
-    CircularBuffer_Put(buffer, 30);
-    CircularBuffer_Print(buffer);
-    STRCMP_EQUAL(expectedOutput, actualOutput);
-}
-
-TEST(CircularBufferPrint, PrintNotYetWrappedAndIsFull)
-{
-    expectedOutput = "Circular buffer content:\n"
-                     "<31, 41, 59, 26, 53>\n";
-
-    CircularBuffer b = CircularBuffer_Create(5);
-    CircularBuffer_Put(b, 31);
-    CircularBuffer_Put(b, 41);
-    CircularBuffer_Put(b, 59);
-    CircularBuffer_Put(b, 26);
-    CircularBuffer_Put(b, 53);
-
-    CircularBuffer_Print(b);
-
-    STRCMP_EQUAL(expectedOutput, actualOutput);
-    CircularBuffer_Destroy(b);
-}
-
-TEST(CircularBufferPrint, PrintOldToNewWhenWrappedAndFull)
-{
-    expectedOutput =
-        "Circular buffer content:\n"
-        "<201, 202, 203, 204, 999>\n";
-
-    CircularBuffer b = CircularBuffer_Create(5);
-    CircularBuffer_Put(b, 200);
-    CircularBuffer_Put(b, 201);
-    CircularBuffer_Put(b, 202);
-    CircularBuffer_Put(b, 203);
-    CircularBuffer_Put(b, 204);
-    CircularBuffer_Get(b);
-    CircularBuffer_Put(b, 999);
-
-    CircularBuffer_Print(b);
-
-    STRCMP_EQUAL(expectedOutput, actualOutput);
-    CircularBuffer_Destroy(b);
+    STRCMP_EQUAL(expectedOutput, FormatOutputSpy_GetOutput());
+    FormatOutputSpy_Destroy();
 }
 
 int main(int ac, char **av)
