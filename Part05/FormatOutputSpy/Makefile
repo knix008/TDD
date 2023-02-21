@@ -1,20 +1,19 @@
-TARGET= faketimeservicetest
+TARGET= formatoutputspy
+COVERAGE_SRC=FormatOutputSpyTest.cpp
 
-COVERAGE_SRC= FakeTimeServiceTest.cpp
+FORMATOUTPUTSPY_DIR= ../FormatOutputSpy
+UTIL_DIR=../Util
 
-TIMESERVICE_DIR= ../TimeService
-TIME_DIR= ../Time
+SRCS= $(COVERAGE_SRC) \
+      $(FORMATOUTPUTSPY_DIR)/FormatOutputSpy.c \
+	  $(UTIL_DIR)/Util.c
 
-SRCS= FakeTimeServiceTest.cpp \
-      FakeTimeService.c
+INCLUDE_FILES= $(FORMATOUTPUTSPY_DIR)/FormatOutputSpy.h \
+               $(UTIL_DIR)/Util.h
 
-INCLUDE_FILES= FakeTimeService.h \
-               $(TIMESERVICE_DIR)/TimeService.h \
-			   $(TIME_DIR)/Time.h
-
-INCLUDES= -I$(TIMESERVICE_DIR) \
-          -I$(TIME_DIR) 
-
+INCLUDES= -I$(FORMATOUTPUTSPY_DIR) \
+          -I$(UTIL_DIR)
+            
 CC= g++
 CFLAGS= -Wall
 CFLAGS_COV= -Wall -fprofile-arcs -ftest-coverage -g
@@ -23,23 +22,20 @@ LIBS= /usr/lib/x86_64-linux-gnu/libCppUTest.a
 CPPUTESTRUN_OPTION= -c
 COVERAGE_INFO=testcoverage.info
 COVERAGE_OUTPUT_DIR=coverage
-.SILENT: $(TARGET) coverage clean cclean
+.SILENT: $(TARGET) clean
 
 $(TARGET): $(SRCS) $(INCLUDE_FILES)
 	@echo "Building $(TARGET)..."
 	@$(CC) -o $(TARGET) $(CFLAGS) $(SRCS) $(INCLUDES) $(LIBS)
 	@echo "Running $(TARGET)..."
-	@./$(TARGET) $(CPPUTESTRUN_OPTION)
+	./$(TARGET) $(CPPUTESTRUN_OPTION)
 
-coverage: $(SRCS) $(INCLUDE_FILES)
+coverage: 
 	@$(CC) -o $(TARGET)_cov $(CFLAGS_COV) $(SRCS) $(INCLUDES) $(LIBS)
-	@-./$(TARGET)_cov $(CPPUTESTRUN_OPTION)
+	@-./$(TARGET)_cov
 	@gcov $(COVERAGE_SRC) $(CPPUTESTRUN_OPTION)
 	@lcov --rc lcov_branch_coverage=1 --capture --directory ./ --output-file $(COVERAGE_INFO)
 	@genhtml ${COVERAGE_INFO} --branch-coverage --output-directory ${COVERAGE_OUTPUT_DIR}
-
-clean:
-	@rm $(TARGET)
 
 cclean:
 	@-rm *.gcda *.gcno 
@@ -47,5 +43,5 @@ cclean:
 	@-rm -rf $(COVERAGE_OUTPUT_DIR)
 	@-rm $(TARGET)_cov
 
-all: $(TARGET) coverage
-cleanall: cclean clean
+clean:
+	@-rm $(TARGET)

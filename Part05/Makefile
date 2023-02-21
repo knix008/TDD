@@ -5,7 +5,8 @@ DIRS = Time \
 	   LightDriver \
 	   LightDriverSpy \
 	   LightScheduler \
-	   LightScheduler-R01
+	   LightScheduler-R01 \
+	   CircularBuffer
 	   
 .PHONY: all clean
 
@@ -19,4 +20,16 @@ clean:
 	@for directory in $(DIRS); \
 	do \
 		$(MAKE) -C $$directory clean; \
+	done
+
+coverage: 
+	@for directory in $(DIRS); \
+	do \
+		$(MAKE) -C $$directory coverage; \
+	done
+
+cclean:
+	@for directory in $(DIRS); \
+	do \
+		$(MAKE) -C $$directory cclean; \
 	done

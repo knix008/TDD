@@ -35,7 +35,7 @@ $(TARGET): $(SRCS) $(INCLUDE_FILES)
 
 coverage: 
 	@$(CC) -o $(TARGET)_cov $(CFLAGS_COV) $(SRCS) $(INCLUDES) $(LIBS)
-	@-./$(TARGET)_cov
+	@-./$(TARGET)_cov $(CPPUTESTRUN_OPTION)
 	@gcov $(COVERAGE_SRC) 
 	@lcov --rc lcov_branch_coverage=1 --capture --directory ./ --output-file $(COVERAGE_INFO)
 	@genhtml ${COVERAGE_INFO} --branch-coverage --output-directory ${COVERAGE_OUTPUT_DIR}
