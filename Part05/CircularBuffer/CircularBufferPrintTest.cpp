@@ -8,6 +8,7 @@ TEST_GROUP(CircularBufferPrint)
     CircularBuffer buffer;
     const char *expectedOutput;
     const char *actualOutput;
+    
     void setup()
     {
         UT_PTR_SET(FormatOutput, FormatOutputSpy);
