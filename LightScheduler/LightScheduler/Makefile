@@ -1,4 +1,4 @@
-TARGET= lightschedulertest-r01
+TARGET= lightschedulertest
 COVERAGE_SRC=LightSchedulerTest.cpp
 
 TIME_DIR = ../Time

@@ -1,13 +1,14 @@
-TARGET= lightschedulertest-r01
+TARGET= lightschedulertest
 COVERAGE_SRC=LightSchedulerTest.cpp
 
 TIME_DIR = ../Time
 TIMESERVICE_DIR = ../TimeService
 FAKETIMESERVICE_DIR= ../FakeTimeService
 FAKERANDOMMINUTE_DIR= ../FakeRandomMinute
-LIGHTCONTROLLER_DIR= ../LightController
 LIGHTDRIVER_DIR= ../LightDriver
 LIGHTDRIVERSPY_DIR= ../LightDriverSpy
+LIGHTCONTROLLER_DIR= ../LightController
+LIGHTCONTROLLERSPY_DIR= ../LightControllerSpy
 RANDOMMINUTE_DIR= ../RandomMinute
 
 SRCS= LightSchedulerTest.cpp \
@@ -15,9 +16,9 @@ SRCS= LightSchedulerTest.cpp \
 	  $(TIME_DIR)/Time.c \
       $(FAKETIMESERVICE_DIR)/FakeTimeService.c \
 	  $(FAKERANDOMMINUTE_DIR)/FakeRandomMinute.c \
-      $(LIGHTCONTROLLER_DIR)/LightController.c \
 	  $(LIGHTDRIVER_DIR)/LightDriver.c \
 	  $(LIGHTDRIVERSPY_DIR)/LightDriverSpy.c \
+	  $(LIGHTCONTROLLERSPY_DIR)/LightControllerSpy.c \
 	  $(RANDOMMINUTE_DIR)/RandomMinute.c
 
 INCLUDE_FILES= LightScheduler.h \
@@ -25,18 +26,20 @@ INCLUDE_FILES= LightScheduler.h \
 			   $(TIMESERVICE_DIR)/TimeService.h \
                $(FAKETIMESERVICE_DIR)/FakeTimeService.h \
 			   $(FAKERANDOMMINUTE_DIR)/FakeRandomMinute.h \
-			   $(LIGHTCONTROLLER_DIR)/LightController.h \
 			   $(LIGHTDRIVER_DIR)/LightDriver.h \
 			   $(LIGHTDRIVERSPY_DIR)/LightDriverSpy.h \
+			   $(LIGHTCONTROLLER_DIR)/LightController.h \
+			   $(LIGHTCONTROLLERSPY_DIR)/LightControllerSpy.h \
 			   $(RANDOMMINUTE_DIR)/RandomMinute.h
 
 INCLUDES= -I$(TIME_DIR) \
           -I$(TIMESERVICE_DIR) \
           -I$(FAKETIMESERVICE_DIR) \
 		  -I$(FAKERANDOMMINUTE_DIR) \
-		  -I$(LIGHTCONTROLLER_DIR) \
 		  -I$(LIGHTDRIVER_DIR) \
 		  -I$(LIGHTDRIVERSPY_DIR) \
+		  -I$(LIGHTCONTROLLER_DIR) \
+		  -I$(LIGHTCONTROLLERSPY_DIR) \
 		  -I$(RANDOMMINUTE_DIR)
 
 CC= g++

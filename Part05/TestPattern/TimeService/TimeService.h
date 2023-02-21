@@ -1,6 +1,7 @@
 #ifndef __TIMESERVICE_H__
 #define __TIMESERVICE_H__
 #include <stdbool.h>
+#include "Time.h"
 
 void TimeService_Create(void);
 void TimeService_Destroy(void);
