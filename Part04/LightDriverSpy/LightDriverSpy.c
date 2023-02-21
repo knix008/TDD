@@ -42,48 +42,6 @@ LightDriver LightDriverSpy_Create(int id)
     return (LightDriver)self;
 }
 
-static void destroy(LightDriver base)
-{
-    free(base);
-}
-
-static void update(int id, int state)
-{
-    states[id] = state;
-    lastId = id;
-    lastState = state;
-}
-
-static void turnOn(LightDriver base)
-{
-    LightDriverSpy self = (LightDriverSpy)base;
-    update(self->base.id, LIGHT_ON);
-}
-
-static void turnOff(LightDriver base)
-{
-    LightDriverSpy self = (LightDriverSpy)base;
-    update(self->base.id, LIGHT_OFF);
-}
-
-/* ANSI */
-static LightDriverInterfaceStruct interface =
-{
-        turnOn,
-        turnOff,
-        destroy
-};
-
-/* C99 */
-/*
-static LightDriverInterfaceStruct interface =
-{
-        .TurnOn = LightDriverSpy_TurnOn,
-        .TurnOff = LightDriverSpy_TurnOff,
-        .Destroy = LightDriverSpy_Destroy
-};
-*/
-
 void LightDriverSpy_Destroy(LightDriver super)
 {
     LightDriverSpy self = (LightDriverSpy)super;
@@ -109,6 +67,14 @@ void LightDriverSpy_TurnOff(LightDriver super)
     LightDriverSpy self = (LightDriverSpy)super;
     save(self->base.id, LIGHT_OFF);
 }
+
+/* ANSI */
+static LightDriverInterfaceStruct interface =
+{
+        LightDriverSpy_TurnOn,
+        LightDriverSpy_TurnOff,
+        LightDriverSpy_Destroy
+};
 
 void LightDriverSpy_InstallInterface(void)
 {
