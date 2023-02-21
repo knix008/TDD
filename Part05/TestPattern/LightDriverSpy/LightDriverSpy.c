@@ -1,7 +1,5 @@
 #include <stdlib.h>
 #include <memory.h>
-#include "LightDriver.h"
-#include "LightController.h"
 #include "LightDriverSpy.h"
 
 typedef struct LightDriverSpyStruct

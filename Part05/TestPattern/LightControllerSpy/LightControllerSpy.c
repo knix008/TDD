@@ -30,6 +30,7 @@ void LightController_TurnOn(int id)
     lastId = id;
     lastState = 1;
     count++;
+
     if (isIdInRange(id))
         lights[id] = LIGHT_ON;
 }
@@ -39,6 +40,7 @@ void LightController_TurnOff(int id)
     lastId = id;
     lastState = 0;
     count++;
+    
     if (isIdInRange(id))
         lights[id] = LIGHT_OFF;
 }

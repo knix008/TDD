@@ -4,7 +4,8 @@ DIRS = Time \
        LightControllerSpy \
 	   LightDriver \
 	   LightDriverSpy \
-	   LightScheduler
+	   LightScheduler \
+	   LightSchedulerRefactoredTest 
 	   
 .PHONY: all clean
 

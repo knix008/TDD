@@ -2,6 +2,7 @@
 #define __LIGHTDRIVERSPY__H__
 
 #include "LightDriver.h"
+#include "LightController.h"
 
 typedef struct LightDriverSpyStruct *LightDriverSpy;
 
