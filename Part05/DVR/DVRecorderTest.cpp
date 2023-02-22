@@ -71,11 +71,13 @@ TEST(DvRecorder, RecordWithNoRepeat)
     DvRecorder_RestorePrograms(&recorder);
     // etc...
 }
+
 TEST(DvRecorder, RecordConflictFirstHighPriorityWins)
 {
     DvRecorder_RestorePrograms(&recorder);
     // etc...
 }
+
 TEST(DvRecorder, RecordConflictHighPriorityWins)
 {
     recorder.programs[0].priority = LOW_PRIORITY;
