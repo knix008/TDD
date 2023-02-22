@@ -28,7 +28,6 @@ TEST_GROUP(RtcTime)
         LONGS_EQUAL(dayOfMonth, RtcTime_GetDayOfMonth(rtcTime));
         LONGS_EQUAL(month, RtcTime_GetMonth(rtcTime));
         LONGS_EQUAL(dayOfWeek, RtcTime_GetDayOfWeek(rtcTime));
-
     }
 
     int daysForYear(int year)
