@@ -9,25 +9,24 @@ TEST_GROUP(CircularBuffer)
 
     void setup()
     {
-      buffer = CircularBuffer_Create(10);
+        buffer = CircularBuffer_Create(10);
     }
 
     void teardown()
     {
-       CHECK_TRUE(CircularBuffer_VerifyIntegrity(buffer));
-       CircularBuffer_Destroy(buffer);
+        CHECK_TRUE(CircularBuffer_VerifyIntegrity(buffer));
+        CircularBuffer_Destroy(buffer);
     }
 
     void putManyInTheBuffer(int seed, int howMany)
     {
         for (int i = 0; i < howMany; i++)
-            CircularBuffer_Put(buffer, i+seed);
+            CircularBuffer_Put(buffer, i + seed);
     }
 };
 
 TEST(CircularBuffer, Create)
 {
-
 }
 
 TEST(CircularBuffer, EmptyAfterCreation)
@@ -80,7 +79,7 @@ TEST(CircularBuffer, Capacity)
 TEST(CircularBuffer, IsFull)
 {
     for (int i = 0; i < CircularBuffer_Capacity(buffer); i++)
-        CircularBuffer_Put(buffer, i+100);
+        CircularBuffer_Put(buffer, i + 100);
 
     CHECK_TRUE(CircularBuffer_IsFull(buffer));
 }
@@ -88,12 +87,12 @@ TEST(CircularBuffer, IsFull)
 TEST(CircularBuffer, EmptyToFullToEmpty)
 {
     for (int i = 0; i < CircularBuffer_Capacity(buffer); i++)
-        CircularBuffer_Put(buffer, i+100);
+        CircularBuffer_Put(buffer, i + 100);
 
     CHECK_TRUE(CircularBuffer_IsFull(buffer));
 
     for (int j = 0; j < CircularBuffer_Capacity(buffer); j++)
-        LONGS_EQUAL(j+100, CircularBuffer_Get(buffer));
+        LONGS_EQUAL(j + 100, CircularBuffer_Get(buffer));
 
     CHECK_TRUE(CircularBuffer_IsEmpty(buffer));
     CHECK_FALSE(CircularBuffer_IsFull(buffer));
@@ -103,7 +102,7 @@ TEST(CircularBuffer, WrapAround)
 {
     int capacity = CircularBuffer_Capacity(buffer);
     for (int i = 0; i < capacity; i++)
-        CircularBuffer_Put(buffer, i+100);
+        CircularBuffer_Put(buffer, i + 100);
 
     CHECK_TRUE(CircularBuffer_IsFull(buffer));
     LONGS_EQUAL(100, CircularBuffer_Get(buffer));
@@ -112,7 +111,7 @@ TEST(CircularBuffer, WrapAround)
     CHECK_TRUE(CircularBuffer_IsFull(buffer));
 
     for (int j = 1; j < capacity; j++)
-        LONGS_EQUAL(j+100, CircularBuffer_Get(buffer));
+        LONGS_EQUAL(j + 100, CircularBuffer_Get(buffer));
 
     LONGS_EQUAL(1000, CircularBuffer_Get(buffer));
     CHECK_TRUE(CircularBuffer_IsEmpty(buffer));
@@ -128,10 +127,10 @@ TEST(CircularBuffer, PutToFullDoesNotDamageContents)
 {
     putManyInTheBuffer(900, CircularBuffer_Capacity(buffer));
 
-        CircularBuffer_Put(buffer, 9999);
+    CircularBuffer_Put(buffer, 9999);
 
     for (int i = 0; i < CircularBuffer_Capacity(buffer); i++)
-        LONGS_EQUAL(i+900, CircularBuffer_Get(buffer));
+        LONGS_EQUAL(i + 900, CircularBuffer_Get(buffer));
 
     CHECK_TRUE(CircularBuffer_IsEmpty(buffer));
 }
@@ -143,7 +142,7 @@ TEST(CircularBuffer, GetFromEmptyReturns0)
 
 TEST(CircularBuffer, PrintEmpty)
 {
-    const char* expectedOutput = "Circular buffer content:\n<>\n";
+    const char *expectedOutput = "Circular buffer content:\n<>\n";
     FormatOutputSpy_Create(100);
     UT_PTR_SET(FormatOutput, FormatOutputSpy);
 
@@ -155,7 +154,7 @@ TEST(CircularBuffer, PrintEmpty)
 
 TEST(CircularBuffer, PrintAfterOneIsPut)
 {
-    const char* expectedOutput = "Circular buffer content:\n<17>\n";
+    const char *expectedOutput = "Circular buffer content:\n<17>\n";
     FormatOutputSpy_Create(100);
     UT_PTR_SET(FormatOutput, FormatOutputSpy);
 
