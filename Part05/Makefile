@@ -6,7 +6,8 @@ DIRS = Time \
 	   LightDriverSpy \
 	   LightScheduler \
 	   LightScheduler-R01 \
-	   CircularBuffer
+	   CircularBuffer \
+	   Monitor
 	   
 .PHONY: all clean
 
