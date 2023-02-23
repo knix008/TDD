@@ -4,15 +4,13 @@
 
 TEST_GROUP(LegacyFlash);
 
-/*
-ioAddress address = 0x1000;
-ioData data = 0xBEEF;
-*/
 int result = -1;
 
 TEST_SETUP(LegacyFlash)
 {
     MockIO_Init();
+    Flash_Create();
+    result = 0;
 }
 
 TEST_TEAR_DOWN(LegacyFlash)
