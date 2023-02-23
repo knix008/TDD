@@ -9,7 +9,8 @@ DIRS = Time \
 	   CircularBuffer \
 	   Monitor \
 	   DVR \
-	   FlashDriver
+	   FlashDriver \
+	   StringParser
 	   
 .PHONY: all clean
 
