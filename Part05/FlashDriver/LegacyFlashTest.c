@@ -1,12 +1,13 @@
 #include "unity_fixture.h"
 #include "MockIO.h"
 #include "FlashDriver.h"
-#include "FakeMicroTime.h"
 
 TEST_GROUP(LegacyFlash);
 
+/*
 ioAddress address = 0x1000;
 ioData data = 0xBEEF;
+*/
 int result = -1;
 
 TEST_SETUP(LegacyFlash)
