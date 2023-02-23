@@ -20,7 +20,6 @@ TEST_TEAR_DOWN(LegacyFlash)
     MockIO_Destroy();
 }
 
-/*
 TEST(LegacyFlash, FlashProgramSuccess)
 {
     IO_Write_Expect(CommandRegister, ProgramCommand);
@@ -36,45 +35,40 @@ TEST(LegacyFlash, FlashProgramSuccess)
 /*
 TEST(LegacyFlash, FlashProgramSuccess)
 {
-    MockIO_Expect_Write(CommandRegister, ProgramCommand);
-    MockIO_Expect_Write(0x1000, 0xBEEF);
-    MockIO_Expect_ReadThenReturn(StatusRegister, 0);
-    MockIO_Expect_ReadThenReturn(StatusRegister, 0);
-    MockIO_Expect_ReadThenReturn(StatusRegister, ReadyBit);
+    IO_Write_Expect(CommandRegister, ProgramCommand);
+    IO_Write_Expect(0x1000, 0xBEEF);
     result = Flash_Write(0x1000, 0xBEEF);
-    LONGS_EQUAL(0, result);
-}
-
-TEST(LegacyFlash, FlashProgramSuccess)
-{
-    MockIO_Expect_Write(CommandRegister, ProgramCommand);
-    MockIO_Expect_Write(0x1000, 0xBEEF);
-    result = Flash_Write(0x1000, 0xBEEF);
-    LONGS_EQUAL(0, result);
-}
-
-TEST(LegacyFlash, FlashProgramSuccess)
-{
-    MockIO_Expect_Write(CommandRegister, ProgramCommand);
-    result = Flash_Write(0x1000, 0xBEEF);
-    LONGS_EQUAL(0, result);
+    TEST_ASSERT_EQUAL_INT32(0, result);
 }
 */
 
+/*
+TEST(LegacyFlash, FlashProgramSuccess)
+{
+    IO_Write_Expect(CommandRegister, ProgramCommand);
+    result = Flash_Write(0x1000, 0xBEEF);
+    TEST_ASSERT_EQUAL_INT32(0, result);
+}
+*/
+
+/*
 TEST(LegacyFlash, FlashProgramSuccess)
 {
     result = Flash_Write(0x1000, 0xBEEF);
     TEST_ASSERT_EQUAL_INT32(0, result);
 }
+*/
 
+/*
 TEST(LegacyFlash, FlashProgramStart)
 {
     TEST_IGNORE_MESSAGE("Flash Write Test - Getting Started!!!");
 }
+*/
 
 TEST_GROUP_RUNNER(LegacyFlash)
 {
-    RUN_TEST_CASE(LegacyFlash, FlashProgramStart);
+    /* RUN_TEST_CASE(LegacyFlash, FlashProgramStart); */
     RUN_TEST_CASE(LegacyFlash, FlashProgramSuccess);
 }
 

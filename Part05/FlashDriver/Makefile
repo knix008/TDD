@@ -3,6 +3,7 @@ TARGET=legacyflashtest
 CC=gcc
 CFLAGS= -Wall
 CFLAGS_COV= $(CFLASG) -fprofile-arcs -ftest-coverage -g
+UNITYRUNTIME_OPTION= -V
 
 UNITY_DIR= ../../CUnity
 CMOCK_DIR= ../CMock/src
@@ -46,14 +47,14 @@ $(TARGET): $(SRCS) $(SRC_HEADER) $(UNITY_OBJS)
 	@echo "Compiling $(TARGET).c..."
 	@$(CC) -o $@ $(CFLAG) $(SRCS) $(UNITY_OBJS) $(INCLUDES)
 	@echo "Running $(TARGET)..."
-	@./$(TARGET)
+	@./$(TARGET) $(UNITYRUNTIME_OPTION)
 
 $(UNITY_OBJS): $(UNITY)
 	@$(CC) -c $(UNITY_SRC) $(INCLUDES)
 
 coverage: $(SRCS) $(SRC_HEADER) $(UNITY_OBJS) $(MOCK_SRC)
 	@$(CC) -o $(TARGET)_cov $(CFLAGS_COV) $(SRCS) $(UNITY_OBJS) $(INCLUDES)
-	@-./$(TARGET)_cov
+	@-./$(TARGET)_cov $(UNITYRUNTIME_OPTION)
 	@gcov $(COVERAGE_SRC) 
 	@lcov --rc lcov_branch_coverage=1 --capture --directory ./ --output-file $(COVERAGE_INFO)
 	@genhtml ${COVERAGE_INFO} --branch-coverage --output-directory ${COVERAGE_OUTPUT_DIR}
