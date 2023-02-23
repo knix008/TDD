@@ -8,7 +8,8 @@ DIRS = Time \
 	   LightScheduler-R01 \
 	   CircularBuffer \
 	   Monitor \
-	   DVR
+	   DVR \
+	   FlashDriver
 	   
 .PHONY: all clean
 
