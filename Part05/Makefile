@@ -7,6 +7,7 @@ DIRS = Time \
 	   LightScheduler \
 	   LightScheduler-R01 \
 	   CircularBuffer \
+	   FormatOutputSpy \
 	   Monitor \
 	   DVR \
 	   FlashDriver \
