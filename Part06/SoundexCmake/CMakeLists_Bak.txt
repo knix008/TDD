@@ -1,8 +1,8 @@
 project(FirstExample)
 cmake_minimum_required(VERSION 3.25)
 
-include_directories(/usr/local/include)
-link_directories(/usr/local/lib)
+include_directories($ENV{GMOCK_HOME}/include $ENV{GMOCK_HOME}/gtest/include)
+link_directories($ENV{GMOCK_HOME}/mybuild $ENV{GMOCK_HOME}/gtest/mybuild)
 
 find_package(Threads REQUIRED)
 
@@ -13,7 +13,7 @@ set(sources
    main.cpp 
    SoundexTest.cpp)
 
-add_definitions(-std=c++14)
+add_definitions(-std=c++0x)
 add_executable(soundextest ${sources})
 
 target_link_libraries(soundextest gmock)
