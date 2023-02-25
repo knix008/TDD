@@ -6,7 +6,7 @@ INCLUDE_FILES=
 INCLUDES=
 
 CC= g++
-CFLAGS= -Wall
+CFLAGS= -Wall --std=c++14
 CFLAGS_COV= -Wall -fprofile-arcs -ftest-coverage -g
 INCLUDES+= -I/usr/local/include/gtest \
            -I/usr/local/include/gmock
