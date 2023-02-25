@@ -1,0 +1,3 @@
+/Users/suhokwon/Projects/TDD/Part06/SoundexCmake/build/CMakeFiles/soundextest.dir
+/Users/suhokwon/Projects/TDD/Part06/SoundexCmake/build/CMakeFiles/edit_cache.dir
+/Users/suhokwon/Projects/TDD/Part06/SoundexCmake/build/CMakeFiles/rebuild_cache.dir
