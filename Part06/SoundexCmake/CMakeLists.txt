@@ -1,5 +1,5 @@
 project(FirstExample)
-cmake_minimum_required(VERSION 3.25)
+cmake_minimum_required(VERSION 3.16)
 
 include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
