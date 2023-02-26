@@ -1,11 +1,12 @@
-TARGET= soundex01
+TARGET= SoundexTest
 #COVERAGE_SRC=SoundexTest01.cpp
 #COVERAGE_SRC=SoundexTest02.cpp
 #COVERAGE_SRC=SoundexTest03.cpp
 #COVERAGE_SRC=SoundexTest04.cpp
 #COVERAGE_SRC=SoundexTest05.cpp
 #COVERAGE_SRC=SoundexTest06.cpp
-COVERAGE_SRC=SoundexTest07.cpp
+#COVERAGE_SRC=SoundexTest07.cpp
+COVERAGE_SRC=$(TARGET)08.cpp
 
 SRCS= $(COVERAGE_SRC) 
 INCLUDE_FILES=
