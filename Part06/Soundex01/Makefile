@@ -1,12 +1,5 @@
 TARGET= SoundexTest
-#COVERAGE_SRC=SoundexTest01.cpp
-#COVERAGE_SRC=SoundexTest02.cpp
-#COVERAGE_SRC=SoundexTest03.cpp
-#COVERAGE_SRC=SoundexTest04.cpp
-#COVERAGE_SRC=SoundexTest05.cpp
-#COVERAGE_SRC=SoundexTest06.cpp
-#COVERAGE_SRC=SoundexTest07.cpp
-COVERAGE_SRC=$(TARGET)08.cpp
+COVERAGE_SRC=$(TARGET)10.cpp
 
 SRCS= $(COVERAGE_SRC) 
 INCLUDE_FILES=
@@ -27,11 +20,14 @@ COVERAGE_OUTPUT_DIR=coverage
 
 $(TARGET): $(SRCS) $(INCLUDE_FILES)
 	@echo "Building $(TARGET)..."
+	@echo "We are using $(COVERAGE_SRC) now..."
 	@$(CC) -o $(TARGET) $(CFLAGS) $(SRCS) $(INCLUDES) $(LIBS)
 	@echo "Running $(TARGET)..."
 	./$(TARGET)
 
 coverage: 
+	@echo "Building Test Coverage for $(TAREGET)..."
+	@echo "We are using $(COVERAGE_SRC) now..."
 	@$(CC) -o $(TARGET)_cov $(CFLAGS_COV) $(SRCS) $(INCLUDES) $(LIBS)
 	@-./$(TARGET)_cov
 	@gcov $(COVERAGE_SRC) 
