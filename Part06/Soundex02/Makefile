@@ -18,6 +18,7 @@ INCLUDE_FILE= Soundex05.h
 #             Soundex03.h
 #             Soundex02.h
 #             Soundex01.h
+
 INCLUDE_FILES= $(INCLUDE_DIRS)/$(INCLUDE_FILE)
 INCLUDES= -I$(INCLUDE_DIRS)
 
