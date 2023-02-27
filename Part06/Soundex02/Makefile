@@ -1,10 +1,10 @@
 TARGET= SoundexTest
-TARGET_SRC=$(TARGET)11.cpp
+TARGET_SRC=$(TARGET)12.cpp
 
 SRCS= $(TARGET_SRC) \
-      Soundex.cpp
+      Soundex01.cpp
 INCLUDE_DIRS= ../Include
-INCLUDE_FILES= $(INCLUDE_DIRS)/Soundex.h
+INCLUDE_FILES= $(INCLUDE_DIRS)/Soundex01.h
 INCLUDES= -I$(INCLUDE_DIRS)
 
 CC= g++
@@ -24,7 +24,7 @@ $(TARGET): $(SRCS) $(INCLUDE_FILES)
 	@echo "Building $(TARGET)..."
 	@$(CC) -o $(TARGET) $(CFLAGS) $(SRCS) $(INCLUDES) $(LIBS)
 	@echo "Running $(TARGET)..."
-	./$(TARGET)
+	@./$(TARGET)
 
 coverage: 
 	@echo "Building Test Coverage for $(TAREGET)..."

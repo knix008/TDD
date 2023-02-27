@@ -19,6 +19,11 @@ TEST_F(SoundexEncoding, PadsWithZerosToEnsureThreeDigits)
     ASSERT_THAT(soundex.encode("I"), Eq("I000"));
 }
 
+TEST_F(SoundexEncoding, ReplacesConsonantsWithAppropriateDigits)
+{
+    ASSERT_THAT(soundex.encode("Ab"), Eq("A100"));
+}
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleMock(&argc, argv);
