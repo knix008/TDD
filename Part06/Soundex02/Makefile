@@ -1,19 +1,23 @@
 TARGET= SoundexTest
-TARGET_SRC=$(TARGET)12.cpp
+TARGET_SRC=$(TARGET)14.cpp
 
 SRCS= $(TARGET_SRC) \
-      Soundex07.cpp
-#	  Soundex06.cpp
-#     Soundex05.cpp
-#     Soundex04.cpp
-#     Soundex03.cpp
-#     Soundex02.cpp
-#     Soundex01.cpp
+       Soundex09.cpp
+#       Soundex08.cpp
+#       Soundex07.cpp
+#  	    Soundex06.cpp
+#       Soundex05.cpp
+#       Soundex04.cpp
+#       Soundex03.cpp
+#       Soundex02.cpp
+#       Soundex01.cpp
 
 INCLUDE_DIRS= ../Include
-INCLUDE_FILE= Soundex03.h
-#Soundex02.h
-#Soundex01.h
+INCLUDE_FILE= Soundex05.h
+#             Soundex04.h
+#             Soundex03.h
+#             Soundex02.h
+#             Soundex01.h
 INCLUDE_FILES= $(INCLUDE_DIRS)/$(INCLUDE_FILE)
 INCLUDES= -I$(INCLUDE_DIRS)
 
