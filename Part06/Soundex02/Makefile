@@ -1,9 +1,11 @@
 TARGET= SoundexTest
-TARGET_SRC=$(TARGET)10-R01.cpp
+TARGET_SRC=$(TARGET)11.cpp
 
-SRCS= $(TARGET_SRC) 
-INCLUDE_FILES=
-INCLUDES=
+SRCS= $(TARGET_SRC) \
+      Soundex.cpp
+INCLUDE_DIRS= ../Include
+INCLUDE_FILES= $(INCLUDE_DIRS)/Soundex.h
+INCLUDES= -I$(INCLUDE_DIRS)
 
 CC= g++
 CFLAGS= -Wall --std=c++14
@@ -20,19 +22,18 @@ COVERAGE_OUTPUT_DIR=coverage
 
 $(TARGET): $(SRCS) $(INCLUDE_FILES)
 	@echo "Building $(TARGET)..."
-	@echo "We are using $(TARGET_SRC) now..."
 	@$(CC) -o $(TARGET) $(CFLAGS) $(SRCS) $(INCLUDES) $(LIBS)
 	@echo "Running $(TARGET)..."
 	./$(TARGET)
 
 coverage: 
 	@echo "Building Test Coverage for $(TAREGET)..."
-	@echo "We are using $(TARGET_SRC) now..."
 	@$(CC) -o $(TARGET)_cov $(CFLAGS_COV) $(SRCS) $(INCLUDES) $(LIBS)
+	@echo "Running $(TARGET)..."
 	@-./$(TARGET)_cov
-	@gcov $(TARGET_SRC) 
-	@lcov --rc lcov_branch_coverage=1 --capture --directory ./ --output-file $(COVERAGE_INFO)
-	@genhtml ${COVERAGE_INFO} --branch-coverage --output-directory ${COVERAGE_OUTPUT_DIR}
+	@gcov $(TARGET_SRC) 1>/dev/null
+	@lcov --rc lcov_branch_coverage=1 --capture --directory ./ --output-file $(COVERAGE_INFO) 1>/dev/null
+	@genhtml ${COVERAGE_INFO} --branch-coverage --output-directory ${COVERAGE_OUTPUT_DIR} 1>/dev/null
 
 cclean:
 	@-rm *.gcda *.gcno 
