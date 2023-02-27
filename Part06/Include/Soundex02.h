@@ -10,8 +10,8 @@ public:
 
 private:
     string zeroPad(const string &word) const;
-    string head(const std::string& word) const;
-    string encodedDigits(const std::string& word) const;
+    string head(const string& word) const;
+    string encodedDigits(const string& word) const;
 };
 
 #endif

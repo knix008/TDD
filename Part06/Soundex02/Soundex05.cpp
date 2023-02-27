@@ -11,12 +11,12 @@ string Soundex::zeroPad(const string &word) const
     return word + string(zerosNeeded, '0');
 }
 
-string Soundex::head(const std::string &word) const
+string Soundex::head(const string &word) const
 {
     return word.substr(0, 1);
 }
 
-string Soundex::encodedDigits(const std::string &word) const
+string Soundex::encodedDigits(const string &word) const
 {
     if (word.length() > 1)
         return "1";
