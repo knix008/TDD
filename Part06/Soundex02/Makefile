@@ -2,9 +2,15 @@ TARGET= SoundexTest
 TARGET_SRC=$(TARGET)12.cpp
 
 SRCS= $(TARGET_SRC) \
-      Soundex01.cpp
+      Soundex04.cpp
+#     Soundex03.cpp
+#     Soundex02.cpp
+#     Soundex01.cpp
+
 INCLUDE_DIRS= ../Include
-INCLUDE_FILES= $(INCLUDE_DIRS)/Soundex01.h
+INCLUD_FILES= $(INCLUDE_DIRS)/Soundex02.h
+#     $(INCLUDE_DIRS)/Soundex01.h
+
 INCLUDES= -I$(INCLUDE_DIRS)
 
 CC= g++
@@ -20,13 +26,13 @@ COVERAGE_INFO=testcoverage.info
 COVERAGE_OUTPUT_DIR=coverage
 .SILENT: $(TARGET) coverage clean cclean
 
-$(TARGET): $(SRCS) $(INCLUDE_FILES)
+$(TARGET): $(TARGET_SRC) $(SRCS) $(INCLUDE_FILES)
 	@echo "Building $(TARGET)..."
 	@$(CC) -o $(TARGET) $(CFLAGS) $(SRCS) $(INCLUDES) $(LIBS)
 	@echo "Running $(TARGET)..."
 	@./$(TARGET)
 
-coverage: 
+coverage: $(TARGET_SRC) $(SRCS) $(INCLUDE_FILES)
 	@echo "Building Test Coverage for $(TAREGET)..."
 	@$(CC) -o $(TARGET)_cov $(CFLAGS_COV) $(SRCS) $(INCLUDES) $(LIBS)
 	@echo "Running $(TARGET)..."
