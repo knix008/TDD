@@ -1,5 +1,5 @@
 TARGET= SoundexTest
-TARGET_SRC=$(TARGET)22.cpp
+TARGET_SRC=$(TARGET)23.cpp
 
 SRCS= $(TARGET_SRC) main.cpp \
       Soundex17.cpp
@@ -11,7 +11,8 @@ SRCS= $(TARGET_SRC) main.cpp \
       #Soundex11.cpp
       #Soundex10.cpp
 
-INCLUDE_FILE= Soundex07.h
+INCLUDE_FILE= Soundex08.h
+      #Soundex07.h
       #Soundex06.h
       #Soundex05.h
 
