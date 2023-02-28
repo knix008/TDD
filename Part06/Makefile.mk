@@ -7,6 +7,9 @@ LIBS= /usr/local/lib/libgmock.a \
       /usr/local/lib/libgtest.a \
 	  -lpthread
 
+INCLUDE_FILES= $(INCLUDE_DIRS)/$(INCLUDE_FILE)
+INCLUDES= -I$(INCLUDE_DIRS)
+
 COVERAGE_INFO=testcoverage.info
 COVERAGE_OUTPUT_DIR=coverage
 .SILENT: $(TARGET) coverage clean cclean
