@@ -1,0 +1,14 @@
+TARGET= SoundexTest
+TARGET_SRC=$(TARGET)16.cpp
+
+SRCS= $(TARGET_SRC) \
+      Soundex11.cpp
+
+INCLUDE_DIRS= ../Include
+INCLUDE_FILE= Soundex05.h
+
+INCLUDE_FILES= $(INCLUDE_DIRS)/$(INCLUDE_FILE)
+INCLUDES= -I$(INCLUDE_DIRS)
+
+include ../Makefile.mk
+
