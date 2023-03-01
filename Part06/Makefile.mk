@@ -2,14 +2,15 @@ CC= g++
 GOOGLETEST_OPTION= --gtest_catch_exceptions=0
 CFLAGS= -Wall --std=c++14
 CFLAGS_COV= -Wall -fprofile-arcs -ftest-coverage -g
-INCLUDES+= -I/usr/local/include/gtest \
-           -I/usr/local/include/gmock
+INCLUDES= -I/usr/local/include/gtest \
+          -I/usr/local/include/gmock
 LIBS= /usr/local/lib/libgmock.a \
       /usr/local/lib/libgtest.a \
 	  -lpthread
 
+INCLUDE_DIRS= ../Include
 INCLUDE_FILES= $(INCLUDE_DIRS)/$(INCLUDE_FILE)
-INCLUDES= -I$(INCLUDE_DIRS)
+INCLUDES+= -I$(INCLUDE_DIRS)
 COVERAGE_INFO=testcoverage.info
 COVERAGE_OUTPUT_DIR=coverage
 .SILENT: $(TARGET) coverage clean cclean

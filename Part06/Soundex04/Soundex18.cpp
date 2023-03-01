@@ -1,10 +1,15 @@
-#include "Soundex09.h"
+#include "Soundex10.h"
 
 static const size_t MaxCodeLength{4};
 
-string Soundex::encode(const string &word) const
+string Soundex::encode(const std::string &word) const
 {
-    return zeroPad(head(word) + encodedDigits(tail(word)));
+    return zeroPad(upperFront(head(word)) + encodedDigits(tail(word)));
+}
+
+string Soundex::upperFront(const std::string &string) const
+{
+    return std::string(1, toupper(static_cast<unsigned char>(string.front())));
 }
 
 string Soundex::zeroPad(const string &word) const
