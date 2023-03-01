@@ -1,3 +1,4 @@
+TARGET= SoundexTest
 CC= g++
 GOOGLETEST_OPTION= --gtest_catch_exceptions=0
 CFLAGS= -Wall --std=c++14
@@ -11,6 +12,7 @@ LIBS= /usr/local/lib/libgmock.a \
 INCLUDE_DIRS= ../Include
 INCLUDE_FILES= $(INCLUDE_DIRS)/$(INCLUDE_FILE)
 INCLUDES+= -I$(INCLUDE_DIRS)
+SRCS+= $(TARGET_SRC) main.cpp
 COVERAGE_INFO=testcoverage.info
 COVERAGE_OUTPUT_DIR=coverage
 .SILENT: $(TARGET) coverage clean cclean

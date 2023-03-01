@@ -38,9 +38,3 @@ TEST_F(SoundexEncoding, LimitsLengthToFourCharacters)
 {
     ASSERT_THAT(soundex.encode("Dcdlb").length(), Eq(4u));
 }
-
-int main(int argc, char **argv)
-{
-    testing::InitGoogleMock(&argc, argv);
-    return RUN_ALL_TESTS();
-}

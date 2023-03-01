@@ -33,9 +33,3 @@ TEST_F(SoundexEncoding, ReplacesMultipleConsonantsWithDigits)
 {
     ASSERT_THAT(soundex.encode("Acdl"), Eq("A234"));
 }
-
-int main(int argc, char **argv)
-{
-    testing::InitGoogleMock(&argc, argv);
-    return RUN_ALL_TESTS();
-}

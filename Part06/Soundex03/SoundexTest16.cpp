@@ -37,9 +37,3 @@ TEST_F(SoundexEncoding, IgnoresNonAlphabetics)
 {
     ASSERT_THAT(soundex.encode("A#"), Eq("A000"));
 }
-
-int main(int argc, char **argv)
-{
-    testing::InitGoogleMock(&argc, argv);
-    return RUN_ALL_TESTS();
-}
