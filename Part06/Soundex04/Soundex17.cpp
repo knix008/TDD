@@ -1,4 +1,4 @@
-#include "Soundex08.h"
+#include "Soundex09.h"
 
 static const size_t MaxCodeLength{4};
 
@@ -23,20 +23,29 @@ string Soundex::tail(const string &word) const
     return word.substr(1);
 }
 
-string Soundex::encodedDigits(const std::string &word) const
+
+string Soundex::lastDigit(const string &encoding) const
+{
+    if (encoding.empty())
+        return "";
+    return string(1, encoding.back());
+}
+
+string Soundex::encodedDigits(const string &word) const
 {
     string encoding;
     for (auto letter : word)
     {
         if (isComplete(encoding))
             break;
-        encoding += encodedDigit(letter);
+        if (encodedDigit(letter) != lastDigit(encoding))
+            encoding += encodedDigit(letter);
     }
-
     return encoding;
 }
 
-bool Soundex::isComplete(const std::string &encoding) const
+
+bool Soundex::isComplete(const string &encoding) const
 {
     return encoding.length() == MaxCodeLength - 1;
 }

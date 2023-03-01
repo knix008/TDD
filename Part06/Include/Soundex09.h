@@ -14,6 +14,7 @@ private:
     string zeroPad(const string &word) const;
     string head(const string& word) const;
     string tail(const string &word) const;
+    string lastDigit(const string &encoding) const;
     string encodedDigits(const string& word) const;
     bool isComplete(const string &encoding) const;
 };
