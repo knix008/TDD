@@ -1,6 +1,6 @@
 # The Project Makefile
-TARGET_SRC= SoundexTest31.cpp
-SRCS= Soundex23.cpp
-INCLUDE_FILE= Soundex13.h
+TARGET_SRC= SoundexTest.cpp
+SRCS= Soundex.cpp
+INCLUDE_FILE= Soundex.h
 
 include ../Makefile.mk

@@ -18,7 +18,8 @@ private:
     string encodedDigits(const string& word) const;
     void encodeHead(string &encoding, const string &word) const;
     void encodeTail(string &encoding, const string &word) const;
-    void encodeLetter(string &encoding, char letter) const;
+    void encodeLetter(string &encoding, char letter, char lastLetter) const;
+    bool isVowel(char letter) const;
     bool isComplete(const string &encoding) const;
     string upperFront(const string &string) const;
     char lower(char c) const;

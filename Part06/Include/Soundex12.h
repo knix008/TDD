@@ -19,7 +19,7 @@ private:
     void encodeHead(string &encoding, const string &word) const;
     void encodeTail(string &encoding, const string &word) const;
     bool isComplete(const string &encoding) const;
-    string upperFront(const std::string &string) const;
+    string upperFront(const string &string) const;
     char lower(char c) const;
 };
 

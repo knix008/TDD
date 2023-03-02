@@ -17,7 +17,7 @@ private:
     string lastDigit(const string &encoding) const;
     string encodedDigits(const string& word) const;
     bool isComplete(const string &encoding) const;
-    string upperFront(const std::string &string) const;
+    string upperFront(const string &string) const;
 };
 
 #endif
