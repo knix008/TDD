@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall  -rdynamic CMakeFiles/test.dir/main.cpp.o CMakeFiles/test.dir/RetweetCollectionTest.cpp.o CMakeFiles/test.dir/RetweetCollection.cpp.o CMakeFiles/test.dir/Tweet.cpp.o  -o test   -L/mybuild  -L/gtest/mybuild  -Wl,-rpath,/mybuild:/gtest/mybuild -lgmock -lgtest -lpthread 
