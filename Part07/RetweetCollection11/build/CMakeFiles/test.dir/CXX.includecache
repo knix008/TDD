@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/RetweetCollection.cpp
+RetweetCollection.h
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/RetweetCollection.h
+
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/RetweetCollection.h
+set
+-
+Tweet.h
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/Tweet.h
+
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/RetweetCollectionTest.cpp
+gmock/gmock.h
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/gmock/gmock.h
+RetweetCollection.h
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/RetweetCollection.h
+Tweet.h
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/Tweet.h
+
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/Tweet.cpp
+Tweet.h
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/Tweet.h
+
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/Tweet.h
+string
+-
+
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/TweetTest.cpp
+gmock/gmock.h
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/gmock/gmock.h
+Tweet.h
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/Tweet.h
+
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/main.cpp
+gmock/gmock.h
+/home/shkwon/Project/TDD/Part07/RetweetCollection11/gmock/gmock.h
+
