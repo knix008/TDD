@@ -11,7 +11,6 @@ LIGHTCONTROLLER_DIR= ../LightController
 LIGHTCONTROLLERSPY_DIR= ../LightControllerSpy
 RANDOMMINUTE_DIR=../RandomMinute
 
-#SRCS= LightSchedulerRandomTest.cpp
 SRCS= LightSchedulerTest.cpp \
       LightScheduler.c \
 	  $(TIME_DIR)/Time.c \
@@ -57,7 +56,7 @@ $(TARGET): $(SRCS) $(INCLUDE_FILES)
 	@echo "Building $(TARGET)..."
 	@$(CC) -o $(TARGET) $(CFLAGS) $(SRCS) $(INCLUDES) $(LIBS)
 	@echo "Running $(TARGET)..."
-	./$(TARGET) $(CPPUTESTRUN_OPTION)
+	@./$(TARGET) $(CPPUTESTRUN_OPTION)
 
 coverage: 
 	@$(CC) -o $(TARGET)_cov $(CFLAGS_COV) $(SRCS) $(INCLUDES) $(LIBS)
