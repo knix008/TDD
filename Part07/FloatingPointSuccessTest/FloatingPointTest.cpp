@@ -12,5 +12,3 @@ public:
 TEST_F(FloatingPoint, IsSame) {
    ASSERT_THAT(x + y, DoubleEq(4.56));
 }
-
-
