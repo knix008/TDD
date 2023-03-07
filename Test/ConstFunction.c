@@ -1,13 +1,12 @@
 #include <stdio.h>
 
-int fun(int y) __attribute__((const));
+int constfunction(int y) __attribute__((const));
 /* void fun(int y) __attribute__((pure)); */
 int x = 1;
 
-int fun(int y)
+int constfunction(int y)
 {
   x = y;
-  return x;
 }
 
 void normal(int y)
@@ -17,8 +16,8 @@ void normal(int y)
 
 void main()
 {
-    fun(100);
-    printf("The X variable : %d\n", x);
+    constfunction(100);
+    printf("Const Function - The X variable : %d\n", x);
     normal(100);
-    printf("The X variable : %d\n", x);
+    printf("Normal Function - The X variable : %d\n", x);
 }
