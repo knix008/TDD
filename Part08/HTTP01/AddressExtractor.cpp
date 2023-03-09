@@ -1,6 +1,5 @@
-#include "AddressExtractor.h"
-
 #include <string>
+#include "AddressExtractor.h"
 
 using namespace std;
 using namespace Json;

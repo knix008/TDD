@@ -1,5 +1,5 @@
-#include "gmock/gmock.h"
 #include <string>
+#include "gmock/gmock.h"
 #include "CurlHttp.h"
 
 using namespace ::testing;
@@ -13,10 +13,9 @@ TEST(Http, WriteCallback) {
    ASSERT_THAT(CurlHttp::Response(), Eq("123456789012"));
 }
 
-TEST(HttpIntegration, DISABLED_Get) {
+TEST(HttpIntegration, Get) {
    CurlHttp http;
    http.initialize();
    auto response = http.get("http://langrsoft.com");
    ASSERT_THAT(response, HasSubstr("Jeff Langr"));
 }
-

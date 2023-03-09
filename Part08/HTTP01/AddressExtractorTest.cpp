@@ -1,8 +1,7 @@
-#include "gmock/gmock.h"
-#include "AddressExtractor.h"
-
 #include <algorithm>
 #include <string>
+#include "gmock/gmock.h"
+#include "AddressExtractor.h"
 
 using namespace std;
 using namespace testing;

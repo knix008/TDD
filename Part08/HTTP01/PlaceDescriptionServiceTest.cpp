@@ -1,5 +1,4 @@
 #include "gmock/gmock.h"
-
 #include "PlaceDescriptionService.h"
 #include "Http.h"
 
@@ -22,7 +21,7 @@ class HttpStub: public Http {
    }
 };
 
-TEST_F(APlaceDescriptionService, DISABLED_ReturnsDescriptionForValidLocation) {
+TEST_F(APlaceDescriptionService, ReturnsDescriptionForValidLocation) {
    HttpStub httpStub;
    PlaceDescriptionService service{&httpStub};
 
