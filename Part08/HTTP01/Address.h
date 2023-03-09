@@ -3,7 +3,8 @@
 
 #include <string>
 
-struct Address {
+struct Address
+{
    std::string road;
    std::string city;
    std::string state;
@@ -11,4 +12,3 @@ struct Address {
 };
 
 #endif
-

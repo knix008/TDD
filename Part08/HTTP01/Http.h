@@ -3,11 +3,12 @@
 
 #include <string>
 
-class Http {
+class Http
+{
 public:
    virtual ~Http() {}
    virtual void initialize() = 0;
-   virtual std::string get(const std::string& url) const = 0;
+   virtual std::string get(const std::string &url) const = 0;
 };
 
 #endif

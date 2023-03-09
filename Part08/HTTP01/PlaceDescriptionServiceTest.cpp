@@ -5,7 +5,8 @@
 using namespace std;
 using namespace testing;
 
-class APlaceDescriptionService: public Test {
+class APlaceDescriptionService : public Test
+{
 public:
    static const string ValidLatitude;
    static const string ValidLongitude;
@@ -14,14 +15,17 @@ public:
 const string APlaceDescriptionService::ValidLatitude("38.005");
 const string APlaceDescriptionService::ValidLongitude("-104.44");
 
-class HttpStub: public Http {
+class HttpStub : public Http
+{
    void initialize() override {}
-   std::string get(const std::string& url) const override {
+   std::string get(const std::string &url) const override
+   {
       return "???";
    }
 };
 
-TEST_F(APlaceDescriptionService, ReturnsDescriptionForValidLocation) {
+TEST_F(APlaceDescriptionService, ReturnsDescriptionForValidLocation)
+{
    HttpStub httpStub;
    PlaceDescriptionService service{&httpStub};
 
@@ -29,4 +33,3 @@ TEST_F(APlaceDescriptionService, ReturnsDescriptionForValidLocation) {
 
    ASSERT_THAT(description, Eq("Drury Ln, Fountain, CO, US"));
 }
-

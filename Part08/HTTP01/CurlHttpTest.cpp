@@ -5,7 +5,8 @@
 using namespace ::testing;
 using namespace std;
 
-TEST(Http, WriteCallback) {
+TEST(Http, WriteCallback)
+{
    string buffer("123456789012");
    size_t size(12);
    size_t numberOfMembers(1);
@@ -13,7 +14,8 @@ TEST(Http, WriteCallback) {
    ASSERT_THAT(CurlHttp::Response(), Eq("123456789012"));
 }
 
-TEST(HttpIntegration, Get) {
+TEST(HttpIntegration, Get)
+{
    CurlHttp http;
    http.initialize();
    auto response = http.get("http://langrsoft.com");
