@@ -10,7 +10,7 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 set(sources 
    main.cpp 
-   #CurlHttpTest.cpp 
+   CurlHttpTest.cpp 
    CurlHttp.cpp
    AddressExtractorTest.cpp 
    AddressExtractor.cpp

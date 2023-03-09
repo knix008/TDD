@@ -14,7 +14,7 @@ TEST(Http, WriteCallback)
    ASSERT_THAT(CurlHttp::Response(), Eq("123456789012"));
 }
 
-TEST(HttpIntegration, Get)
+TEST(HttpIntegration, DISABLED_Get)
 {
    CurlHttp http;
    http.initialize();
