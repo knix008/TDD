@@ -22,13 +22,11 @@ public:
    string returnResponse;
    string expectedURL;
    void initialize() override {}
-
    std::string get(const std::string &url) const override
    {
       verify(url);
       return returnResponse;
    }
-
    void verify(const string &url) const
    {
       ASSERT_THAT(url, Eq(expectedURL));
