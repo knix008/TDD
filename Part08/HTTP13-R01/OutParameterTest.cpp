@@ -39,6 +39,7 @@ TEST(ATarget, ReturnsAnAmountWhenCalculatePasses)
            Return(true)));
 
    auto result = calc.execute(&difficult);
+   //std::cout << result << std::endl;
 
    ASSERT_THAT(result, Eq(3));
 }
