@@ -14,6 +14,7 @@ set(sources
    CurlHttp.cpp
    #AddressExtractorTest.cpp 
    AddressExtractor.cpp
+   OutParameterTest.cpp
    PlaceDescriptionServiceTest.cpp 
    PlaceDescriptionService.cpp)
 
