@@ -1,4 +1,4 @@
-project(design)
+project(HTTP)
 cmake_minimum_required(VERSION 2.6)
 
 include_directories($ENV{GMOCK_HOME}/include $ENV{GMOCK_HOME}/gtest/include $ENV{JSONCPP_HOME}/include $ENV{CURL_HOME}/include)
@@ -23,4 +23,3 @@ target_link_libraries(test gtest)
 target_link_libraries(test jsoncpp)
 target_link_libraries(test curl)
 target_link_libraries(test Threads::Threads)
-
