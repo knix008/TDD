@@ -28,13 +28,13 @@ COVERAGE_OUTPUT_DIR=coverage
 
 $(TARGET): $(TARGET_SRC) $(SRCS) $(INCLUDE_FILES)
 	@echo "Building $(TARGET) with $(SRCS) $(INCLUDE_FILE)..."
-	@$(CC) -o $(TARGET) $(CFLAGS) $(SRCS) $(INCLUDES) $(LIBS)
+	@$(CC) $(CFLAGS) -o $(TARGET) $(SRCS) $(INCLUDES) $(LIBS)
 	@echo "Running $(TARGET)..."
 	@./$(TARGET) $(GOOGLETEST_OPTION)
 
 coverage: $(TARGET_SRC) $(SRCS) $(INCLUDE_FILES)
 	@echo "Building Test Coverage with $(SRCS) $(INCLUDE_FILE)..."
-	@$(CC) -o $(TARGET)_cov $(CFLAGS_COV) $(SRCS) $(INCLUDES) $(LIBS)
+	@$(CC) $(CFLAGS_COV) -o $(TARGET)_cov $(SRCS) $(INCLUDES) $(LIBS)
 	@echo "Running $(TARGET)..."
 	@-./$(TARGET)_cov $(GOOGLETEST_OPTION)
 	@gcov $(TARGET_SRC) 1>/dev/null
