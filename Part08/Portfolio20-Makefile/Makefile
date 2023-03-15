@@ -1,6 +1,7 @@
 TARGET= PortfolioTest
 CC= g++
 GOOGLETEST_OPTION= --gtest_catch_exceptions=0
+GOOGLETEST_FILTER= --gtest_filter=*.*
 CXXFLAGS= -Wall --std=c++0x
 
 INCLUDE_DIRS= -I/usr/local/include/gtest \
@@ -31,7 +32,7 @@ $(TARGET): $(OBJECTS) $(SOURCES) $(INCLUDE_FILES)
 	@echo "Building Executable..."
 	@$(CC) $(CXXFLAGS) $(OBJECTS) -o $@ $(INCLUDE_DIRS) $(LIBS)
 	@echo "Running Test..."
-	@./$(TARGET) $(GOOGLETEST_OPTION)
+	@./$(TARGET) $(GOOGLETEST_OPTION) $(GOOGLETEST_FILTER)
 
 .cpp.o:
 	@echo "Compiling $<..."
