@@ -31,7 +31,7 @@ $(TARGET): $(OBJECTS) $(SOURCES) $(INCLUDE_FILES)
 	@echo "Building Executable..."
 	@$(CC) $(CXXFLAGS) $(OBJECTS) -o $@ $(INCLUDE_DIRS) $(LIBS)
 	@echo "Running Test..."
-	@./$(TARGET)
+	@./$(TARGET) $(GOOGLETEST_OPTION)
 
 .cpp.o:
 	@echo "Compiling $<..."
