@@ -1,40 +1,11 @@
-// Copyright (c) 2009, Google Inc.
-// All rights reserved.
-//
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//     * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
-// copyright notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-//     * Neither the name of Google Inc. nor the names of its
-// contributors may be used to endorse or promote products derived from
-// this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-#include "gmock/gmock.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
-
+#include "gmock/gmock.h"
 #include "LineReader.h"
 
-static int TemporaryFile() {
+static int TemporaryFile()
+{
   static const char templ[] = "/tmp/line-reader-unittest-XXXXXX";
   char templ_copy[sizeof(templ)];
   memcpy(templ_copy, templ, sizeof(templ));
@@ -45,11 +16,20 @@ static int TemporaryFile() {
   return fd;
 }
 
-namespace {
-typedef testing::Test LineReaderTest;
+static int WriteTemporaryFile(const char* records) {
+  const int fd = TemporaryFile();
+  write(fd, records, strlen(records));
+  lseek(fd, 0, SEEK_SET);
+  return fd;
 }
 
-TEST(LineReaderTest, EmptyFile) {
+namespace
+{
+  typedef testing::Test LineReaderTest;
+}
+
+TEST(LineReaderTest, EmptyFile)
+{
   const int fd = TemporaryFile();
   LineReader reader(fd);
 
@@ -60,10 +40,9 @@ TEST(LineReaderTest, EmptyFile) {
   close(fd);
 }
 
-TEST(LineReaderTest, OneLineTerminated) {
-  const int fd = TemporaryFile();
-  write(fd, "a\n", 2);
-  lseek(fd, 0, SEEK_SET);
+TEST(LineReaderTest, OneLineTerminated)
+{
+  const int fd = WriteTemporaryFile("a");
   LineReader reader(fd);
 
   const char *line;
@@ -79,7 +58,8 @@ TEST(LineReaderTest, OneLineTerminated) {
   close(fd);
 }
 
-TEST(LineReaderTest, OneLine) {
+TEST(LineReaderTest, OneLine)
+{
   const int fd = TemporaryFile();
   write(fd, "a", 1);
   lseek(fd, 0, SEEK_SET);
@@ -98,7 +78,8 @@ TEST(LineReaderTest, OneLine) {
   close(fd);
 }
 
-TEST(LineReaderTest, TwoLinesTerminated) {
+TEST(LineReaderTest, TwoLinesTerminated)
+{
   const int fd = TemporaryFile();
   write(fd, "a\nb\n", 4);
   lseek(fd, 0, SEEK_SET);
@@ -123,7 +104,8 @@ TEST(LineReaderTest, TwoLinesTerminated) {
   close(fd);
 }
 
-TEST(LineReaderTest, TwoLines) {
+TEST(LineReaderTest, TwoLines)
+{
   const int fd = TemporaryFile();
   write(fd, "a\nb", 3);
   lseek(fd, 0, SEEK_SET);
@@ -148,7 +130,8 @@ TEST(LineReaderTest, TwoLines) {
   close(fd);
 }
 
-TEST(LineReaderTest, MaxLength) {
+TEST(LineReaderTest, MaxLength)
+{
   const int fd = TemporaryFile();
   char l[LineReader::kMaxLineLen - 1];
   memset(l, 'a', sizeof(l));
@@ -166,7 +149,8 @@ TEST(LineReaderTest, MaxLength) {
   close(fd);
 }
 
-TEST(LineReaderTest, TooLong) {
+TEST(LineReaderTest, TooLong)
+{
   const int fd = TemporaryFile();
   char l[LineReader::kMaxLineLen];
   memset(l, 'a', sizeof(l));
