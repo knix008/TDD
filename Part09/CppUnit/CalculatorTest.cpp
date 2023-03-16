@@ -10,7 +10,12 @@ void CalculatorTest::tearDown()
 {
 }
 
-void CalculatorTest::testAdd()
+void CalculatorTest::testAddFailureWithMesssage()
 {
-    CPPUNIT_ASSERT(m_calc.add(10, 10) == 20);
+    CPPUNIT_ASSERT_MESSAGE("The result will should be 20.", m_calc.add(10, 10) != 20 );
+}
+
+void CalculatorTest::testAddSuccessWithNoMessage()
+{
+    CPPUNIT_ASSERT(m_calc.add(10, 10) == 20 );
 }

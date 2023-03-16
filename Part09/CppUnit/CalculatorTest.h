@@ -7,14 +7,16 @@
 class CalculatorTest : public CPPUNIT_NS::TestFixture
 {
     CPPUNIT_TEST_SUITE(CalculatorTest);
-    CPPUNIT_TEST(testAdd);
+    CPPUNIT_TEST(testAddFailureWithMesssage);
+    CPPUNIT_TEST(testAddSuccessWithNoMessage);
     CPPUNIT_TEST_SUITE_END();
 public:
     CalculatorTest(void) {}
     ~CalculatorTest(void) {}
     void setUp();
     void tearDown();
-    void testAdd();
+    void testAddFailureWithMesssage();
+    void testAddSuccessWithNoMessage();
 private:
     Calculator m_calc;
 };
