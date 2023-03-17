@@ -18,7 +18,6 @@ find_package(Boost $ENV{BOOST_VERSION} COMPONENTS filesystem system)
 target_link_libraries(Test ${Boost_LIBRARIES})
 target_link_libraries(Test CppUTest)
 target_link_libraries(Test pthread)
-target_link_libraries(Test ${Boost_LIBRARIES})
 target_link_libraries(Test rlog)
 
 target_link_libraries(SnippetPublisher ${Boost_LIBRARIES})

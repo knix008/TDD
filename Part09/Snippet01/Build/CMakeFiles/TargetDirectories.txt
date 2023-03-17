@@ -1,0 +1,4 @@
+/home/shkwon/Projects/TDD/Part09/Snippet01/Build/CMakeFiles/rebuild_cache.dir
+/home/shkwon/Projects/TDD/Part09/Snippet01/Build/CMakeFiles/SnippetPublisher.dir
+/home/shkwon/Projects/TDD/Part09/Snippet01/Build/CMakeFiles/edit_cache.dir
+/home/shkwon/Projects/TDD/Part09/Snippet01/Build/CMakeFiles/Test.dir
