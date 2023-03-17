@@ -2,7 +2,6 @@
 #include <cstring>
 #include <cstdint>
 #include <algorithm>
-
 #include <rlog/rlog.h>
 #include <rlog/StdioNode.h>
 
