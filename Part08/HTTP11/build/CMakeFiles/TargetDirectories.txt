@@ -1,3 +1,0 @@
-/home/shkwon/Projects/TDD/Part08/HTTP11/build/CMakeFiles/test.dir
-/home/shkwon/Projects/TDD/Part08/HTTP11/build/CMakeFiles/edit_cache.dir
-/home/shkwon/Projects/TDD/Part08/HTTP11/build/CMakeFiles/rebuild_cache.dir
