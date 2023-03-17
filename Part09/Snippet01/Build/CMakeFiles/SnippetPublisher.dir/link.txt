@@ -1,0 +1,1 @@
+/usr/bin/c++   -DRLOG_COMPONENT=debug -Wall  -rdynamic CMakeFiles/SnippetPublisher.dir/main.cpp.o CMakeFiles/SnippetPublisher.dir/WavReader.cpp.o CMakeFiles/SnippetPublisher.dir/WavDescriptor.cpp.o  -o SnippetPublisher   -L/rlog/.libs  -Wl,-rpath,/rlog/.libs /usr/local/lib/libboost_filesystem.a /usr/local/lib/libboost_system.a -lrlog /usr/local/lib/libboost_atomic.a -lpthread 
