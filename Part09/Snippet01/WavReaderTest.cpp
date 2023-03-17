@@ -1,8 +1,8 @@
-//#include "CppUTest/TestHarness.h"
 #include <string>
 #include <iostream>
 #include "WavReader.h"
-
+/* Be sure that STL related header files are included before this line. */
+/* Otherwiser, it will cause compile errors. */
 #include <CppUTest/CommandLineTestRunner.h>
 
 using namespace std;

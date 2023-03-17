@@ -1,13 +1,12 @@
-#include "WavReader.h"
-#include "WavDescriptor.h"
-
 #include <iostream>
 #include <cstring>
 #include <cstdint>
 #include <algorithm>
-
 #include <rlog/rlog.h>
 #include <rlog/StdioNode.h>
+
+#include "WavReader.h"
+#include "WavDescriptor.h"
 
 using namespace std;
 using namespace boost::filesystem;
