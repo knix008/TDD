@@ -2,6 +2,7 @@
 #include <cstring>
 #include <cstdint>
 #include <algorithm>
+
 #include <rlog/rlog.h>
 #include <rlog/StdioNode.h>
 
@@ -90,8 +91,21 @@ string WavReader::toString(int8_t *bytes, unsigned int size)
    return string{(char *)bytes, size};
 }
 
-void writeSamples(out, data, startingSample, samplesToWrite, bytesPerSample)
+void WavReader::writeSamples(ostream *out, char *data,
+                             uint32_t startingSample,
+                             uint32_t samplesToWrite,
+                             uint32_t bytesPerSample)
 {
+   rLog(channel, "writing %i samples", samplesToWrite);
+
+   for (auto sample = startingSample;
+        sample < startingSample + samplesToWrite;
+        sample++)
+   {
+      auto byteOffsetForSample = sample * bytesPerSample;
+      for (uint32_t byte{0}; byte < bytesPerSample; byte++)
+         out->put(data[byteOffsetForSample + byte]);
+   }
 }
 
 void WavReader::open(const std::string &name, bool trace)
@@ -195,6 +209,7 @@ void WavReader::open(const std::string &name, bool trace)
 
    // all of it
    //   out.write(data, dataChunk.length);
+
    // TODO: multiple channels
 
    uint32_t secondsDesired{10};
@@ -216,18 +231,10 @@ void WavReader::open(const std::string &name, bool trace)
    uint32_t startingSample{
        totalSeconds >= 10 ? 10 * formatSubchunk.samplesPerSecond : 0};
 
-   rLog(channel, "writing %u samples", samplesToWrite);
+   writeSamples(&out, data, startingSample, samplesToWrite, bytesPerSample);
 
-   for (auto sample = startingSample;
-        sample < startingSample + samplesToWrite;
-        sample++)
-   {
-      auto byteOffsetForSample = sample * bytesPerSample;
-      for (uint32_t byte{0}; byte < bytesPerSample; byte++)
-         out.put(data[byteOffsetForSample + byte]);
-   }
-   
    rLog(channel, "completed writing %s", name.c_str());
+
    descriptor_->add(dest_, name,
                     totalSeconds, formatSubchunk.samplesPerSecond, formatSubchunk.channels);
 
