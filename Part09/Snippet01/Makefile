@@ -8,7 +8,7 @@ all:
 	@-mkdir $(BUILD)
 	@cd $(BUILD) && cmake ..
 	@make -C $(BUILD)
-	@echo "<======================Running Test=====================>"
+	@echo "<====================Running CppUTest===================>"
 	@$(BUILD)/$(TARGET) $(CPPUTEST_OPTION)
 
 clean:
