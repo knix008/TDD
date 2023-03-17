@@ -163,8 +163,8 @@ void WavReader::open(const std::string& name, bool trace) {
 
    rLog(channel, "riff header size = %lu" , sizeof(RiffHeader));
    rLog(channel, "subchunk header size = %lu", sizeof(FormatSubchunkHeader));
-   rLog(channel, "subchunk size = %lu", formatSubchunkHeader.subchunkSize);
-   rLog(channel, "data length = %lu", dataChunk.length);
+   rLog(channel, "subchunk size = %u", formatSubchunkHeader.subchunkSize);
+   rLog(channel, "data length = %u", dataChunk.length);
    
    // TODO if odd there is a padding byte!
    auto data = new char[dataChunk.length];
