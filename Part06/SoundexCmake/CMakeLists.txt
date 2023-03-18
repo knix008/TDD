@@ -14,8 +14,8 @@ set(sources
    SoundexTest.cpp)
 
 add_definitions(-std=c++14)
-add_executable(soundextest ${sources})
+add_executable(SoundexTest ${sources})
 
-target_link_libraries(soundextest gmock)
-target_link_libraries(soundextest gtest)
-target_link_libraries(soundextest Threads::Threads)
+target_link_libraries(SoundexTest gmock)
+target_link_libraries(SoundexTest gtest)
+target_link_libraries(SoundexTest Threads::Threads)
