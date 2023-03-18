@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.6)
 include_directories($ENV{BOOST_ROOT}/ $ENV{RLOG_HOME} $ENV{CPPUTEST_HOME}/include)
 link_directories(/usr/local/lib)
 set(Boost_USE_STATIC_LIBS ON)
-add_definitions(-std=c++0x)
+add_definitions(-std=c++11)
 find_package(Threads REQUIRED)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
