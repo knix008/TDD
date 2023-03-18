@@ -35,7 +35,6 @@ TEST(WavReader_WriteSamples, WritesSingleSample)
    CHECK_EQUAL("a", out.str());
 }
 
-/*
 TEST(WavReader_WriteSamples, WritesMultibyteSampleFromMiddle)
 {
    char data[]{"0123456789ABCDEFG"};
@@ -46,4 +45,3 @@ TEST(WavReader_WriteSamples, WritesMultibyteSampleFromMiddle)
    reader.writeSamples(&out, data, startingSample, samplesToWrite, bytesPerSample);
    CHECK_EQUAL("89ABCD", out.str());
 }
-*/

@@ -8,6 +8,6 @@
 
 using namespace std;
 
-void WriteSample(ostringstream *out, char *data, uint32_t startingSample, uint32_t samplesToWrite, uint32_t bytesPerSample);
+void WriteSamples(ostringstream *out, char *data, uint32_t startingSample, uint32_t samplesToWrite, uint32_t bytesPerSample);
 
 #endif

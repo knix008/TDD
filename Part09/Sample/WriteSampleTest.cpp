@@ -1,21 +1,36 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include <CppUTest/CommandLineTestRunner.h>
 #include "WriteSample.h"
+
+#include <CppUTest/CommandLineTestRunner.h>
 
 using namespace std;
 
-TEST_GROUP(WriteSample){};
+TEST_GROUP(WriteSamplesTest){
+   ostringstream out;
+};
 
-TEST(WriteSample, WritesSingleSample)
+TEST(WriteSamplesTest, WritesSingleSample)
 {
    char data[]{"abcd"};
-   ostringstream out;
 
    uint32_t bytesPerSample{1};
    uint32_t startingSample{0};
    uint32_t samplesToWrite{1};
-   WriteSample(&out, data, startingSample, samplesToWrite, bytesPerSample);
+
+   WriteSamples(&out, data, startingSample, samplesToWrite, bytesPerSample);
+
    CHECK_EQUAL("a", out.str());
+}
+
+TEST(WriteSamplesTest, WritesMultibyteSampleFromMiddle)
+{
+   char data[]{"0123456789ABCDEFG"};
+   uint32_t bytesPerSample{2};
+   uint32_t startingSample{4};
+   uint32_t samplesToWrite{3};
+
+   WriteSamples(&out, data, startingSample, samplesToWrite, bytesPerSample);
+   CHECK_EQUAL("89ABCD", out.str());
 }
