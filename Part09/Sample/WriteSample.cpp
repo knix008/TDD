@@ -1,6 +1,4 @@
-#include <iostream>
-#include <string>
-#include <sstream>
+#include "WriteSample.h"
 
 using namespace std;
 
@@ -21,17 +19,4 @@ void WriteSample(ostringstream *out, char *data,
         cout << "Inp;ut : " << data << endl;
         cout << "Result : " << out->str() << endl;
     }
-}
-
-int main()
-{
-    ostringstream out;
-
-    char data[]{"abcd"};
-    uint32_t bytesPerSample{1};
-    uint32_t startingSample{0};
-    uint32_t samplesToWrite{1};
-
-    WriteSample(&out, data, startingSample, samplesToWrite, bytesPerSample);
-    return 0;
 }
