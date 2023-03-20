@@ -1,0 +1,27 @@
+project(SnippetPublisher)
+cmake_minimum_required(VERSION 2.6)
+
+include_directories($ENV{BOOST_ROOT}/ $ENV{RLOG_HOME} $ENV{CPPUTEST_HOME}/include)
+link_directories($ENV{RLOG_HOME}/rlog/.libs $ENV{CPPUTEST_HOME}/lib)
+set(Boost_USE_STATIC_LIBS ON)
+find_package(Threads REQUIRED)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+
+add_subdirectory(rlog)
+add_definitions(-std=c++11)
+set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -DRLOG_COMPONENT=debug -Wall")
+set(sources WavReader.cpp WavDescriptor.cpp FileUtil.cpp StreamUtil.cpp)
+set(testSources WavReaderTest.cpp)
+add_executable(Test testmain.cpp FileUtilTest.cpp StreamUtilTest.cpp ${testSources} ${sources})
+add_executable(SnippetPublisher main.cpp ${sources})
+
+find_package(Boost $ENV{BOOST_VERSION} COMPONENTS filesystem system)
+target_link_libraries(Test ${Boost_LIBRARIES})
+target_link_libraries(Test CppUTest)
+target_link_libraries(Test Threads::Threads)
+#target_link_libraries(Test rt)
+target_link_libraries(Test rlogStub)
+
+target_link_libraries(SnippetPublisher ${Boost_LIBRARIES})
+target_link_libraries(SnippetPublisher Threads::Threads)
+target_link_libraries(SnippetPublisher rlog)
