@@ -72,9 +72,23 @@ TEST(WavReader_DataLength, IsProductOfChannels_BytesPerSample_and_Samples)
    CHECK_EQUAL(2 * 5 * 4, length);
 }
 
+class MockWavDescriptor : public WavDescriptor
+{
+public:
+   MockWavDescriptor() : WavDescriptor("") {}
+   void add(
+       const string &, const string &,
+       uint32_t totalSeconds,
+       uint32_t, uint32_t) override
+   {
+      mock().actualCall("add").withParameter("totalSeconds", (int)totalSeconds);
+   }
+};
+
 TEST_GROUP(WavReader_WriteSnippet)
 {
-   WavReader reader{"", ""};
+   shared_ptr<MockWavDescriptor> descriptor{new MockWavDescriptor};
+   WavReader reader{"", "", descriptor};
    istringstream input{""};
    FormatSubchunk formatSubchunk;
    ostringstream output;
@@ -89,19 +103,20 @@ TEST_GROUP(WavReader_WriteSnippet)
 
    void teardown() override
    {
+      mock().clear();
       delete[] data;
    }
 };
 
-class MockWavDescriptor : public WavDescriptor
+TEST(WavReader_WriteSnippet, UpdatesTotalSeconds)
 {
-public:
-   MockWavDescriptor() : WavDescriptor("") {}
-   void add(
-       const string &, const string &,
-       uint32_t totalSeconds,
-       uint32_t, uint32_t) override
-   {
-      mock().actualCall("add").withParameter("totalSeconds", (int)totalSeconds);
-   }
-};
+   dataChunk.length = 8;
+   formatSubchunk.bitsPerSample = TwoBytesWorthOfBits;
+   formatSubchunk.samplesPerSecond = 1;
+   mock().expectOneCall("add").withParameter("totalSeconds", 8 / 2 / 1);
+
+   /* The following line will call “descriptor_->add()”. */
+   reader.writeSnippet("any", input, output, formatSubchunk, dataChunk, data);
+
+   mock().checkExpectations();
+}

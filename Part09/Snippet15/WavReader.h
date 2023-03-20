@@ -81,11 +81,8 @@ private:
     std::string toString(int8_t *c, unsigned int size);
 
     rlog::RLogChannel *channel;
-
     std::string source_;
     std::string dest_;
-
-private:
     std::shared_ptr<WavDescriptor> descriptor_;
 };
 
