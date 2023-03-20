@@ -91,7 +91,9 @@ public:
        uint32_t, uint32_t,
        uint32_t fileSize) override
    {
-      mock().actualCall("add").withParameter("totalSeconds", (int)totalSeconds).withParameter("fileSize", (int)fileSize);
+      mock().actualCall("add")
+         .withParameter("totalSeconds", (int)totalSeconds)
+         .withParameter("fileSize", (int)fileSize);
    }
 };
 
@@ -108,9 +110,7 @@ TEST_GROUP(WavReader_WriteSnippet)
 {
    shared_ptr<MockWavDescriptor> descriptor{new MockWavDescriptor};
    WavReader reader{"", "", descriptor};
-
    shared_ptr<MockFileUtil> fileUtil{make_shared<MockFileUtil>()};
-
    istringstream input{""};
    FormatSubchunk formatSubchunk;
    ostringstream output;
@@ -138,7 +138,9 @@ TEST(WavReader_WriteSnippet, SendsFileLengthAndTotalSecondsToDescriptor)
    formatSubchunk.bitsPerSample = TwoBytesWorthOfBits;
    formatSubchunk.samplesPerSecond = 1;
    mock().expectOneCall("size").andReturnValue(ArbitraryFileSize);
-   mock().expectOneCall("add").withParameter("totalSeconds", 8 / 2 / 1).withParameter("fileSize", ArbitraryFileSize);
+   mock().expectOneCall("add")
+      .withParameter("totalSeconds", 8 / 2 / 1)
+      .withParameter("fileSize", ArbitraryFileSize);
 
    reader.writeSnippet("any", input, output, formatSubchunk, dataChunk, data);
 

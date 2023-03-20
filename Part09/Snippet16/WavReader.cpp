@@ -215,38 +215,31 @@ void WavReader::writeSnippet(
 {
    // ...
    uint32_t secondsDesired{10};
-   if (formatSubchunk.bitsPerSample == 0)
-      formatSubchunk.bitsPerSample = 8;
+   if (formatSubchunk.bitsPerSample == 0) formatSubchunk.bitsPerSample = 8;
    uint32_t bytesPerSample{formatSubchunk.bitsPerSample / uint32_t{8}};
-
    uint32_t samplesToWrite{secondsDesired * formatSubchunk.samplesPerSecond};
    uint32_t totalSamples{dataChunk.length / bytesPerSample};
-
    samplesToWrite = min(samplesToWrite, totalSamples);
-
-   uint32_t totalSeconds{totalSamples / formatSubchunk.samplesPerSecond};
+   uint32_t totalSeconds { totalSamples / formatSubchunk.samplesPerSecond };
 
    rLog(channel, "total seconds %u ", totalSeconds);
 
    dataChunk.length = dataLength(
-       samplesToWrite,
-       bytesPerSample,
-       formatSubchunk.channels);
-   out.write(reinterpret_cast<char *>(&dataChunk), sizeof(DataChunk));
+         samplesToWrite, 
+         bytesPerSample, 
+         formatSubchunk.channels);
+   out.write(reinterpret_cast<char*>(&dataChunk), sizeof(DataChunk));
 
    uint32_t startingSample{
-       totalSeconds >= 10 ? 10 * formatSubchunk.samplesPerSecond : 0};
+      totalSeconds >= 10 ? 10 * formatSubchunk.samplesPerSecond : 0};
 
    writeSamples(&out, data, startingSample, samplesToWrite, bytesPerSample);
 
    rLog(channel, "completed writing %s", name.c_str());
-
    auto fileSize = fileUtil_->size(name);
-
    descriptor_->add(dest_, name,
                     totalSeconds, formatSubchunk.samplesPerSecond, formatSubchunk.channels,
                     fileSize);
-
    // out.close(); // ostreams are RAII
 }
 
