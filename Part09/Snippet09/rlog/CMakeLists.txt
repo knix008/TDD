@@ -9,7 +9,7 @@ find_package(Threads REQUIRED)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -DRLOG_COMPONENT=debug -Wall")
-set(sources StdioNode.cpp)
+set(sources rlog.cpp RLogChannel.cpp RLogNode.cpp StdioNode.cpp)
 
 add_library(rlogStub ${sources})
 
