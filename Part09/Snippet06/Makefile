@@ -1,7 +1,7 @@
 TARGET= Test
 BUILD= Build
 .SILENT=all clean
-CPPUTEST_OPTION= -c
+CPPUTEST_OPTION= -c -v
 
 all: 
 	@echo "<======================Buiing Image=====================>"
