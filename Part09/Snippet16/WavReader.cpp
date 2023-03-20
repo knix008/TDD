@@ -238,7 +238,8 @@ void WavReader::writeSnippet(
    rLog(channel, "completed writing %s", name.c_str());
    auto fileSize = fileUtil_->size(name);
    descriptor_->add(dest_, name,
-                    totalSeconds, formatSubchunk.samplesPerSecond, formatSubchunk.channels,
+                    totalSeconds, formatSubchunk.samplesPerSecond, 
+                    formatSubchunk.channels,
                     fileSize);
    // out.close(); // ostreams are RAII
 }
