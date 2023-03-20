@@ -1,8 +1,17 @@
 project(SnippetPublisher)
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.16)
 
+if (LINUX)
 include_directories($ENV{BOOST_ROOT}/ $ENV{RLOG_HOME} $ENV{CPPUTEST_HOME}/include)
 link_directories($ENV{RLOG_HOME}/rlog/.libs $ENV{CPPUTEST_HOME}/lib)
+endif()
+
+# For Apple Mac
+if (APPLE)
+include_directories($ENV{BOOST_ROOT}/ $ENV{RLOG_HOME} $ENV{CPPUTEST_HOME}/include /usr/local/include/)
+link_directories(/usr/local/lib)
+endif()
+
 set(Boost_USE_STATIC_LIBS ON)
 find_package(Threads REQUIRED)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
