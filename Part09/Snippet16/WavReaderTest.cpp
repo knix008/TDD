@@ -60,8 +60,7 @@ TEST(WavReader_WriteSamples, IncorporatesChannelCount)
    uint32_t samplesToWrite{2};
    uint32_t channels{2};
 
-   reader.writeSamples(
-       &out, data, startingSample, samplesToWrite, bytesPerSample, channels);
+   reader.writeSamples(&out, data, startingSample, samplesToWrite, bytesPerSample, channels);
 
    CHECK_EQUAL("01234567", out.str());
 }
@@ -118,7 +117,6 @@ TEST_GROUP(WavReader_WriteSnippet)
    DataChunk dataChunk;
    char *data;
    uint32_t TwoBytesWorthOfBits{2 * 8};
-
    const int ArbitraryFileSize{5};
 
    void setup() override
@@ -139,12 +137,8 @@ TEST(WavReader_WriteSnippet, SendsFileLengthAndTotalSecondsToDescriptor)
    dataChunk.length = 8;
    formatSubchunk.bitsPerSample = TwoBytesWorthOfBits;
    formatSubchunk.samplesPerSecond = 1;
-
    mock().expectOneCall("size").andReturnValue(ArbitraryFileSize);
-
-   mock().expectOneCall("add").withParameter("totalSeconds", 8 / 2 / 1)
-
-       .withParameter("fileSize", ArbitraryFileSize);
+   mock().expectOneCall("add").withParameter("totalSeconds", 8 / 2 / 1).withParameter("fileSize", ArbitraryFileSize);
 
    reader.writeSnippet("any", input, output, formatSubchunk, dataChunk, data);
 
