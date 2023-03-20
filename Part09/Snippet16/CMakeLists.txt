@@ -1,6 +1,7 @@
 project(SnippetPublisher)
 cmake_minimum_required(VERSION 3.16)
 
+# For x86_64 Linux 
 if (LINUX)
 include_directories($ENV{BOOST_ROOT}/ $ENV{RLOG_HOME} $ENV{CPPUTEST_HOME}/include)
 link_directories($ENV{RLOG_HOME}/rlog/.libs $ENV{CPPUTEST_HOME}/lib)
