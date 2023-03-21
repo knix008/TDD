@@ -1,26 +1,30 @@
 #ifndef __SNIPPET_H__
 #define __SNIPPET_H__
 
-#include <memory.h>
-#include <rlog/rlog.h>
-#include <rlog/StdioNode.h>
+#include <string>
+#include <memory>
+#include <algorithm>
 
 #include "FileUtil.h"
 #include "WavDescriptor.h"
+#include "WavStructs.h"
+#include "rlog/RLogChannel.h"
 
-using namespace std;
+#undef RLOG_SECTION
+#define RLOG_SECTION
+// For more information, see https://code.google.com/p/rlog/issues/detail?id=13
 
 class Snippet
 {
 public:
-    Snippet(shared_ptr<FileUtil> fileUtil,
-            shared_ptr<WavDescriptor> descriptor,
+    Snippet(std::shared_ptr<FileUtil> fileUtil,
+            std::shared_ptr<WavDescriptor> descriptor,
             const std::string &dest,
             rlog::RLogChannel *channel)
         : fileUtil_(fileUtil), descriptor_(descriptor), dest_(dest), channel_(channel) {}
 
-    void writeSnippet(
-        const string &name, istream &file, ostream &out,
+    void write(
+        const std::string &name, std::istream &file, std::ostream &out,
         FormatSubchunk &formatSubchunk,
         DataChunk &dataChunk,
         char *data)
@@ -33,11 +37,11 @@ public:
         uint32_t samplesToWrite{secondsDesired * formatSubchunk.samplesPerSecond};
         uint32_t totalSamples{dataChunk.length / bytesPerSample};
 
-        samplesToWrite = min(samplesToWrite, totalSamples);
+        samplesToWrite = std::min(samplesToWrite, totalSamples);
 
         uint32_t totalSeconds{totalSamples / formatSubchunk.samplesPerSecond};
 
-        rLog(channel_, "total seconds %i ", totalSeconds);
+        rLog(channel_, "total seconds %u ", totalSeconds);
 
         dataChunk.length = dataLength(
             samplesToWrite,
@@ -69,13 +73,13 @@ public:
         return samples * bytesPerSample * channels;
     }
 
-    void writeSamples(ostream *out, char *data,
+    void writeSamples(std::ostream *out, char *data,
                       uint32_t startingSample,
                       uint32_t samplesToWrite,
                       uint32_t bytesPerSample,
                       uint32_t channels = 1)
     {
-        rLog(channel_, "writing %i samples", samplesToWrite);
+        rLog(channel_, "writing %u samples", samplesToWrite);
 
         for (auto sample = startingSample;
              sample < startingSample + samplesToWrite;
@@ -93,9 +97,9 @@ public:
     }
 
 private:
-    shared_ptr<FileUtil> fileUtil_;
-    shared_ptr<WavDescriptor> descriptor_;
-    const string dest_;
+    std::shared_ptr<FileUtil> fileUtil_;
+    std::shared_ptr<WavDescriptor> descriptor_;
+    const std::string dest_;
     rlog::RLogChannel *channel_;
 };
 
