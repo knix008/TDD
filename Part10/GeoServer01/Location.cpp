@@ -10,7 +10,8 @@ ostream &operator<<(ostream &output, const Location &location)
 }
 
 Location::Location()
-    : latitude_(std::numeric_limits<double>::infinity()), longitude_(std::numeric_limits<double>::infinity()) {}
+    : latitude_(std::numeric_limits<double>::infinity()),
+      longitude_(std::numeric_limits<double>::infinity()) {}
 
 Location::Location(double latitude, double longitude)
     : latitude_(latitude), longitude_(longitude) {}

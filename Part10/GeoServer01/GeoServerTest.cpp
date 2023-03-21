@@ -1,4 +1,5 @@
 #include "GeoServer.h"
+#include "CppUTestExtensions.h"
 /* NOTICE!!! You should include the CppUTest headers after the other header file include.*/
 #include <CppUTest/CommandLineTestRunner.h>
 
