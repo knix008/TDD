@@ -1,6 +1,18 @@
 project(GeoServer)
 cmake_minimum_required(VERSION 3.16)
 
+# For x86_64 Linux 
+if (LINUX)
+include_directories($ENV{CPPUTEST_HOME}/include)
+link_directories($ENV{CPPUTEST_HOME}/lib)
+endif()
+
+# For Apple Mac
+if (APPLE)
+include_directories(/usr/local/include/)
+link_directories(/usr/local/lib)
+endif()
+
 include_directories($ENV{CPPUTEST_HOME}/include)
 link_directories($ENV{CPPUTEST_HOME}/lib) 
 add_definitions(-g -std=c++0x)
