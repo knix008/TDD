@@ -8,6 +8,7 @@
 
 #include "WavReader.h"
 #include "WavDescriptor.h"
+#include "Snippet.h"
 
 using namespace std;
 using namespace boost::filesystem;
@@ -111,8 +112,8 @@ void WavReader::open(const std::string &name, bool trace)
    rLog(channel, "data length = %i", dataChunk.length);
 
    auto data = readData(file, dataChunk.length); // leak!
-
-   writeSnippet(name, file, out, formatSubchunk, dataChunk, data);
+   Snippet snippet;
+   snippet.writeSnippet(name, file, out, formatSubchunk, dataChunk, data);
 }
 
 void WavReader::read(istream &file, DataChunk &dataChunk)
