@@ -1,8 +1,9 @@
 #include <fstream>
 #include <sstream>
+#include "StreamUtil.h"
+
 /* The following line should be included after the other header file */
 #include <CppUTest/CommandLineTestRunner.h>
-#include "StreamUtil.h"
 
 using namespace std;
 

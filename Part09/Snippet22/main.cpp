@@ -1,7 +1,6 @@
-#include "WavReader.h"
-
 #include <iostream>
 #include <string>
+#include "WavReader.h"
 
 using namespace std;
 
