@@ -3,12 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 
 include_directories($ENV{CPPUTEST_HOME}/include)
 link_directories($ENV{CPPUTEST_HOME}/lib) 
-
 add_definitions(-g -std=c++0x)
-
-find_package(Threads REQUIRED)
-set(THREADS_PREFER_PTHREAD_FLAG ON)
-
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 
 set(sources 
@@ -22,6 +17,4 @@ set(testSources
    LocationTest.cpp)
 
 add_executable(Test testmain.cpp ${testSources} ${sources})
-
 target_link_libraries(Test CppUTest)
-target_link_libraries(Test Threads::Threads)
