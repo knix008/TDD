@@ -21,7 +21,7 @@ public:
    {
       workThread_ = std::make_shared<std::thread>(&ThreadPool::worker, this);
    }
-   // ...
+
    bool hasWork()
    {
       return !workQueue_.empty();
