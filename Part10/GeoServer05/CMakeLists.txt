@@ -29,7 +29,9 @@ set(testSources
    TestTimer.cpp
    AreaTest.cpp
    GeoServerTest.cpp
-   LocationTest.cpp)
+   LocationTest.cpp
+   ThreadPoolTest.cpp
+   WorkTest.cpp)
 
 add_executable(Test testmain.cpp ${testSources} ${sources})
 
