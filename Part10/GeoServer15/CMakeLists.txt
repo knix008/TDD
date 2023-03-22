@@ -1,17 +1,8 @@
 project(GeoServer)
 cmake_minimum_required(VERSION 3.16)
 
-# For x86_64 Linux 
-if (LINUX)
-include_directories($ENV{CPPUTEST_HOME}/include)
-link_directories($ENV{CPPUTEST_HOME}/lib)
-endif()
-
-# For Apple Mac
-if (APPLE)
 include_directories(/usr/local/include/)
 link_directories(/usr/local/lib)
-endif()
 
 find_package(Threads REQUIRED)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
