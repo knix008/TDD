@@ -60,7 +60,10 @@ private:
       while (!done_)
       {
          while (!done_ && !hasWork())
-            ;
+         //{
+         //   std::this_thread::yield();
+         //}
+         ;
          if (done_)
             break;
          pullWork().execute();
