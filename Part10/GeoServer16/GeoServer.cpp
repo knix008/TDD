@@ -1,6 +1,7 @@
-#include <iostream>
 #include "GeoServer.h"
 #include "Location.h"
+
+#include <iostream>
 
 using namespace std;
 
@@ -54,6 +55,7 @@ void GeoServer::usersInBox(
 {
    auto location = locations_.find(user)->second;
    Area box{location, widthInMeters, heightInMeters};
+
    for (auto &each : locations_)
    {
       Work work{[&]
