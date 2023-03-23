@@ -259,7 +259,7 @@ IGNORE_TEST(AGeoServer_ScaleTests, HandlesLargeNumbersOfUsers)
 
 TEST(AGeoServer_Performance, LocationOf)
 {
-   const unsigned int lots{50000};
+   const unsigned int lots{500000};
    addUsersAt(lots, Location{aUserLocation.go(TenMeters, West)});
 
    TestTimer t;
