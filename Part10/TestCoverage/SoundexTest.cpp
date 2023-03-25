@@ -16,3 +16,8 @@ TEST(SoundexEncoding, ReplacesConsonantsWithAppropriateDigits)
 {
    CHECK_EQUAL("A100", soundex.encode("Ab"));
 }
+
+IGNORE_TEST(SoundexEncoding, IgnoreedTestExample)
+{
+   CHECK_EQUAL("A100", soundex.encode("Ab"));
+}

@@ -30,5 +30,11 @@ public:
          return code + "00";
       return code + "000";
    }
+
+   void unused(void)
+   {
+      int result = 0;
+      result++;
+   }
 };
 #endif
