@@ -1,13 +1,14 @@
 #include <condition_variable>
 #include <thread>
 #include <chrono>
+
 #include "GeoServer.h"
 #include "VectorUtil.h"
 #include "TestTimer.h"
 #include "ThreadPool.h"
 #include "Work.h"
-#include "CppUTestExtensions.h"
 #include "CppUTest/TestHarness.h"
+#include "CppUTestExtensions.h"
 
 using namespace std;
 using std::chrono::milliseconds;
@@ -18,7 +19,20 @@ TEST_GROUP(AGeoServer)
 
    const string aUser{"auser"};
    const double LocationTolerance{0.005};
+
+   bool locationIsUnknown(const string &user)
+   {
+      return false;
+   }
 };
+
+/*
+TEST(AGeoServer, AnswersUnknownLocationWhenUserNoLongerTracked)
+{
+   server.stopTracking(aUser);
+   CHECK_TRUE(locationIsUnknown(aUser));
+}
+*/
 
 TEST(AGeoServer, AnswersUnknownLocationWhenUserNoLongerTracked)
 {
@@ -26,9 +40,7 @@ TEST(AGeoServer, AnswersUnknownLocationWhenUserNoLongerTracked)
 
    server.stopTracking(aUser);
 
-   // slow reading. Fix this.
-   auto location = server.locationOf(aUser);
-   CHECK_EQUAL(numeric_limits<double>::infinity(), location.latitude());
+   CHECK_TRUE(locationIsUnknown(aUser));
 }
 
 TEST(AGeoServer, TracksAUser)
@@ -122,16 +134,11 @@ public:
       server.updateLocation(aUser, aUserLocation);
    }
 
-   string userName(unsigned int i)
-   {
-      return string{"user" + to_string(i)};
-   }
-
    void addUsersAt(unsigned int number, const Location &location)
    {
       for (unsigned int i{0}; i < number; i++)
       {
-         string user = userName(i);
+         string user{"user" + to_string(i)};
          server.track(user);
          server.updateLocation(user, location);
       }
@@ -242,8 +249,6 @@ TEST_GROUP_BASE(AGeoServer_ScaleTests, GeoServerUsersInBoxTests)
    }
 };
 
-TEST_GROUP_BASE(AGeoServer_Performance, GeoServerUsersInBoxTests){};
-
 IGNORE_TEST(AGeoServer_ScaleTests, HandlesLargeNumbersOfUsers)
 {
    pool->start(4);
@@ -255,14 +260,4 @@ IGNORE_TEST(AGeoServer_ScaleTests, HandlesLargeNumbersOfUsers)
        { server.usersInBox(aUser, Width, Height, &countingListener); });
 
    countingListener.waitForCountAndFailOnTimeout(lots);
-}
-
-TEST(AGeoServer_Performance, LocationOf)
-{
-   const unsigned int lots{50000};
-   addUsersAt(lots, Location{aUserLocation.go(TenMeters, West)});
-
-   TestTimer t;
-   for (unsigned int i{0}; i < lots; i++)
-      server.locationOf(userName(i));
 }
