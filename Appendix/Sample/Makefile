@@ -1,12 +1,24 @@
 TARGET= main
-CC= g++
-FLAGS= -Wall --coverage -g -O0
 SRCS= main.cpp
 
+CC= g++
+CXXFLAGS= -std=c++14 -Wall --coverage -g -O0
+
+GCOV_DIR= .
+COVERAGE_INFO= Coverage.info
+COVERAGE_DIR= Coverage
+.SILENT= all clean
+
 all: 
-	@$(CC) $(FLAGS) -o $(TARGET) $(SRCS)
+	@-mkdir $(COVERAGE_DIR)
+	@$(CC) $(CXXFLAGS) -o $(TARGET) $(SRCS)
+	@./$(TARGET)
+	@gcov $(SRCS) > /dev/null 2>&1
+	@lcov --rc lcov_branch_coverage=1 --capture --directory $(GCOV_DIR) --output-file $(COVERAGE_INFO) 1>/dev/null
+	@genhtml ${COVERAGE_INFO} --branch-coverage --output-directory ${COVERAGE_DIR} 1>/dev/null
 
 clean:
 	@-rm $(TARGET)
-	@-rm $(TARGET).gcno
-	@-rm -rf $(TARGET).dSYM
+	@-rm *.gcov *.gcda *.gcno
+	@-rm $(COVERAGE_INFO)
+	@-rm -rf $(COVERAGE_DIR)
