@@ -18,7 +18,8 @@ all:
 	@genhtml ${COVERAGE_INFO} --branch-coverage --output-directory ${COVERAGE_DIR} > /dev/null 2>&1
 
 clean:
-	@-rm $(TARGET)
-	@-rm *.gcov *.gcda *.gcno
-	@-rm $(COVERAGE_INFO)
+	@-rm $(TARGET) 
+	@-rm *.gcov *.gcda *.gcno 
+	@-rm $(COVERAGE_INFO) 
 	@-rm -rf $(COVERAGE_DIR)
+	@-rm -rf $(TARGET).dSYM > /dev/null 2>&1
