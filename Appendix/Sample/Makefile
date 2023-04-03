@@ -14,8 +14,8 @@ all:
 	@$(CC) $(CXXFLAGS) -o $(TARGET) $(SRCS)
 	@./$(TARGET)
 	@gcov $(SRCS) > /dev/null 2>&1
-	@lcov --rc lcov_branch_coverage=1 --capture --directory $(GCOV_DIR) --output-file $(COVERAGE_INFO) 1>/dev/null
-	@genhtml ${COVERAGE_INFO} --branch-coverage --output-directory ${COVERAGE_DIR} 1>/dev/null
+	@lcov --rc lcov_branch_coverage=1 --capture --directory $(GCOV_DIR) --output-file $(COVERAGE_INFO) > /dev/null 2>&1
+	@genhtml ${COVERAGE_INFO} --branch-coverage --output-directory ${COVERAGE_DIR} > /dev/null 2>&1
 
 clean:
 	@-rm $(TARGET)
